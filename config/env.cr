@@ -17,4 +17,8 @@ module Lucky::Env
   def task?
     ENV["LUCKY_TASK"]? == "true"
   end
+
+  def use_local?
+    ENV.fetch("USE_LOCAL", "false") == "true"
+  end
 end
