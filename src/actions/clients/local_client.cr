@@ -13,8 +13,8 @@ require "./medium_client"
 # query param and go look for a file with a matching filename.
 
 class LocalClient < MediumClient
-  def self.post_data(post_id : String) : HTTP::Client::Response
+  def self.post_data(post_id : String) : PostResponse::Root
     body = File.read("tmp/posts/#{post_id}.json")
-    HTTP::Client::Response.new(HTTP::Status::OK, body: body)
+    PostResponse::Root.from_json(body)
   end
 end

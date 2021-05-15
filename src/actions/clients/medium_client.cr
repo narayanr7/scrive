@@ -4,12 +4,13 @@ class MediumClient
   # https://stackoverflow.com/questions/2669690/
   JSON_HIJACK_STRING = "])}while(1);</x>"
 
-  def self.post_data(post_id : String) : HTTP::Client::Response
+  def self.post_data(post_id : String) : PostResponse::Root
     client = HTTP::Client.new("medium.com", tls: true)
-    client.post("/_/graphql", headers: headers, body: body(post_id))
+    response = client.post("/_/graphql", headers: headers, body: body(post_id))
+    PostResponse::Root.from_json(response.body)
   end
 
-  def self.embed_data(media_id : String) : MediaResponse::Root
+  def self.media_data(media_id : String) : MediaResponse::Root
     client = HTTP::Client.new("medium.com", tls: true)
     response = client.get("/media/#{media_id}", headers: headers)
     body = response.body.sub(JSON_HIJACK_STRING, nil)
@@ -67,24 +68,5 @@ class MediumClient
         json.field "variables", {} of String => String
       end
     end
-  end
-end
-
-class MediaResponse
-  class Base
-    include JSON::Serializable
-  end
-
-  class Root < Base
-    property payload : Payload
-  end
-
-  class Payload < Base
-    property value : Value
-  end
-
-  class Value < Base
-    property href : String
-    property iframeSrc : String
   end
 end
