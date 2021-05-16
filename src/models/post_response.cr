@@ -33,20 +33,43 @@ class PostResponse
   class Paragraph < Base
     property text : String
     property type : ParagraphType
+    property markups : Array(Markup)
     property iframe : IFrame?
     property layout : String?
+    property metadata : Metadata?
   end
 
   enum ParagraphType
+    BQ
     H3
     H4
-    P
-    PRE
-    BQ
-    ULI
-    OLI
     IFRAME
     IMG
+    OLI
+    P
+    PRE
+    ULI
+  end
+
+  class Markup < Base
+    property title : String?
+    property type : MarkupType
+    property href : String?
+    property start : Int32
+    property end : Int32
+    property anchorType : AnchorType?
+  end
+
+  enum MarkupType
+    A
+    CODE
+    EM
+    STRONG
+  end
+
+  enum AnchorType
+    LINK
+    USER
   end
 
   class IFrame < Base
@@ -58,5 +81,8 @@ class PostResponse
   end
 
   class Metadata < Base
+    property id : String
+    property originalWidth : Int32
+    property originalHeight : Int32
   end
 end

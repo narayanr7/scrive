@@ -13,6 +13,5 @@ class MediaResponse
 
   class Value < Base
     property href : String
-    property iframeSrc : String
   end
 end

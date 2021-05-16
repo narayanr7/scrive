@@ -1,7 +1,7 @@
 class Articles::ShowPage < MainLayout
-  needs post_response : PostResponse::Root
+  needs page : Page
 
   def content
-    mount Post::Post, response: post_response
+    mount PageContent, page: page
   end
 end
