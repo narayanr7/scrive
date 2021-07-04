@@ -38,6 +38,16 @@ describe PageContent do
     html.should eq %(<p>Hello, <em>World!</em></p><ul><li>List!</li><li>Again!</li></ul>)
   end
 
+  it "renders an anchor" do
+    page = Page.new(nodes: [
+      Anchor.new(href: "https://example.com", text: "link"),
+    ] of Child)
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq %(<a href="https://example.com">link</a>)
+  end
+
   it "renders a blockquote" do
     page = Page.new(nodes: [
       BlockQuote.new(children: [

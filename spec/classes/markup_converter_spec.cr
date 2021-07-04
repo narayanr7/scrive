@@ -96,4 +96,37 @@ describe MarkupConverter do
       Code.new(children: [Text.new(content: "code")] of Child),
     ])
   end
+
+  it "renders an A LINK markup" do
+    json = <<-JSON
+      {
+        "text": "I am a Link",
+        "type": "P",
+        "markups": [
+          {
+            "title": "",
+            "type": "A",
+            "href": "https://example.com",
+            "start": 7,
+            "end": 11,
+            "rel": "",
+            "anchorType": "LINK"
+          }
+        ],
+        "href": null,
+        "iframe": null,
+        "layout": null,
+        "metadata": null
+      }
+    JSON
+
+    paragraph = PostResponse::Paragraph.from_json(json)
+
+    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+
+    result.should eq([
+      Text.new("I am a "),
+      Anchor.new(text: "Link", href: "https://example.com")
+    ])
+  end
 end

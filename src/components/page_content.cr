@@ -12,6 +12,10 @@ class PageContent < BaseComponent
     children.each { |child| render_child(child) }
   end
 
+  def render_child(node : Anchor)
+    a(href: node.href) { text node.text }
+  end
+
   def render_child(node : BlockQuote)
     blockquote { render_children(node.children) }
   end

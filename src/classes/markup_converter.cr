@@ -37,14 +37,16 @@ class MarkupConverter
         [Text.new(plain)] of Child
       else
         case markup.type
+        when PostResponse::MarkupType::A
+          container = Anchor.new(href: markup.href || "#", text: to_be_marked)
         when PostResponse::MarkupType::CODE
-          container = construct_markup(to_be_marked, Code)
+          container = construct_markup(text: to_be_marked, container: Code)
         when PostResponse::MarkupType::EM
-          container = construct_markup(to_be_marked, Emphasis)
+          container = construct_markup(text: to_be_marked, container: Emphasis)
         when PostResponse::MarkupType::STRONG
-          container = construct_markup(to_be_marked, Strong)
+          container = construct_markup(text: to_be_marked, container: Strong)
         else
-          container = construct_markup(to_be_marked, Code)
+          container = construct_markup(text: to_be_marked, container: Code)
         end
         [Text.new(plain), container] of Child
       end

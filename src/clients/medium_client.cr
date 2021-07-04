@@ -38,6 +38,7 @@ class MediumClient
                 markups {
                   name
                   type
+                  href
                   start
                   end
                 }

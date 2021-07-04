@@ -1,5 +1,5 @@
 module Nodes
-  alias Leaf = Text | Image | IFrame
+  alias Leaf = Text | Image | IFrame | Anchor
   alias Child = Container | Leaf | Empty
   alias Children = Array(Child)
 
@@ -98,6 +98,22 @@ module Nodes
 
     def ==(other : IFrame)
       other.href == href
+    end
+
+    def empty?
+      false
+    end
+  end
+
+  class Anchor
+    getter href : String
+    getter text : String
+
+    def initialize(@href : String, @text : String)
+    end
+
+    def ==(other : Anchor)
+      other.href == href && other.text == text
     end
 
     def empty?
