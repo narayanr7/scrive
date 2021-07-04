@@ -39,6 +39,7 @@ class MediumClient
                   name
                   type
                   href
+                  userId
                   start
                   end
                 }

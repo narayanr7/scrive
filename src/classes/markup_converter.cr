@@ -38,7 +38,13 @@ class MarkupConverter
       else
         case markup.type
         when PostResponse::MarkupType::A
-          container = Anchor.new(href: markup.href || "#", text: to_be_marked)
+          if href = markup.href
+            container = Anchor.new(href: href, text: to_be_marked)
+          elsif userId = markup.userId
+            container = UserAnchor.new(userId: userId, text: to_be_marked)
+          else
+            container = Empty.new
+          end
         when PostResponse::MarkupType::CODE
           container = construct_markup(text: to_be_marked, container: Code)
         when PostResponse::MarkupType::EM

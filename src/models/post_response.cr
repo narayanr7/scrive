@@ -55,6 +55,7 @@ class PostResponse
     property title : String?
     property type : MarkupType
     property href : String?
+    property userId : String?
     property start : Int32
     property end : Int32
     property anchorType : AnchorType?

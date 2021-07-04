@@ -196,4 +196,14 @@ describe PageContent do
 
     html.should eq %(<ul><li>Apple</li><li>Banana</li></ul>)
   end
+
+  it "renders a user anchor" do
+    page = Page.new(nodes: [
+      UserAnchor.new(userId: "abc123", text: "Some User"),
+    ] of Child)
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq %(<a href="https://medium.com/u/abc123">Some User</a>)
+  end
 end

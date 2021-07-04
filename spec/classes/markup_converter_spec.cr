@@ -129,4 +129,39 @@ describe MarkupConverter do
       Anchor.new(text: "Link", href: "https://example.com")
     ])
   end
+
+  it "renders an A USER markup" do
+    json = <<-JSON
+      {
+        "text": "Hi Dr Nick!",
+        "type": "P",
+        "markups": [
+          {
+            "title": null,
+            "type": "A",
+            "href": null,
+            "userId": "abc123",
+            "start": 3,
+            "end": 10,
+            "rel": null,
+            "anchorType": "USER"
+          }
+        ],
+        "href": null,
+        "iframe": null,
+        "layout": null,
+        "metadata": null
+      }
+    JSON
+
+    paragraph = PostResponse::Paragraph.from_json(json)
+
+    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+
+    result.should eq([
+      Text.new("Hi "),
+      UserAnchor.new(text: "Dr Nick", userId: "abc123"),
+      Text.new("!"),
+    ])
+  end
 end

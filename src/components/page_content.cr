@@ -85,4 +85,8 @@ class PageContent < BaseComponent
   def render_child(node : UnorderedList)
     ul { render_children(node.children) }
   end
+
+  def render_child(node : UserAnchor)
+    a(href: node.href) { text node.text }
+  end
 end

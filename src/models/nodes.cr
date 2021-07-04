@@ -1,5 +1,5 @@
 module Nodes
-  alias Leaf = Text | Image | IFrame | Anchor
+  alias Leaf = Text | Image | IFrame | Anchor | UserAnchor
   alias Child = Container | Leaf | Empty
   alias Children = Array(Child)
 
@@ -113,6 +113,25 @@ module Nodes
     end
 
     def ==(other : Anchor)
+      other.href == href && other.text == text
+    end
+
+    def empty?
+      false
+    end
+  end
+
+  class UserAnchor
+    USER_BASE_URL = "https://medium.com/u/"
+
+    getter href : String
+    getter text : String
+
+    def initialize(userId : String, @text : String)
+      @href = USER_BASE_URL + userId
+    end
+
+    def ==(other : UserAnchor)
       other.href == href && other.text == text
     end
 
