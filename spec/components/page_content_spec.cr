@@ -90,7 +90,7 @@ describe PageContent do
   it "renders a figure and figure caption" do
     page = Page.new(nodes: [
       Figure.new(children: [
-        Image.new(src: "image.png"),
+        Image.new(src: "image.png", originalWidth: 100, originalHeight: 100),
         FigureCaption.new(children: [
           Text.new("A caption")
         ] of Child),
@@ -101,7 +101,7 @@ describe PageContent do
 
     html.should eq stripped_html <<-HTML
       <figure>
-        <img src="https://cdn-images-1.medium.com/image.png">
+        <img src="https://cdn-images-1.medium.com/fit/c/100/100/image.png" width="100" height="100">
         <figcaption>A caption</figcaption>
       </figure>
     HTML
@@ -134,13 +134,17 @@ describe PageContent do
   it "renders an image" do
     page = Page.new(nodes: [
       Paragraph.new(children: [
-        Image.new(src: "image.png"),
+        Image.new(src: "image.png", originalWidth: 100, originalHeight: 100),
       ] of Child)
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
 
-    html.should eq %(<p><img src="https://cdn-images-1.medium.com/image.png"></p>)
+    html.should eq stripped_html <<-HTML
+      <p>
+        <img src="https://cdn-images-1.medium.com/fit/c/100/100/image.png" width="100" height="100">
+      </p>
+    HTML
   end
 
   it "renders an iframe container" do

@@ -77,7 +77,11 @@ class ParagraphConverter
     if metadata = paragraph.metadata
       caption_markup = MarkupConverter.convert(paragraph.text, paragraph.markups)
       Figure.new(children: [
-        Image.new(src: metadata.id),
+        Image.new(
+          src: metadata.id,
+          originalWidth: metadata.originalWidth,
+          originalHeight: metadata.originalHeight
+        ),
         FigureCaption.new(children: caption_markup)
       ] of Child)
     else

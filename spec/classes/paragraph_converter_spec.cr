@@ -180,14 +180,14 @@ describe ParagraphConverter do
         "layout": "INSET_CENTER",
         "metadata": {
           "id": "image.png",
-          "originalWidth": 618,
-          "originalHeight": 682
+          "originalWidth": 1000,
+          "originalHeight": 600
         }
       }
     JSON
     expected = [
       Figure.new(children: [
-        Image.new(src: "image.png"),
+        Image.new(src: "image.png", originalWidth: 1000, originalHeight: 600),
         FigureCaption.new(children: [
           Text.new("Image by "),
           Anchor.new(href: "https://unsplash.com/@someuser", text: "someuser"),
@@ -303,7 +303,7 @@ describe ParagraphConverter do
       UnorderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
       OrderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
       Figure.new(children: [
-        Image.new(src: "1*miroimage.png"),
+        Image.new(src: "1*miroimage.png", originalWidth: 618, originalHeight: 682),
         FigureCaption.new(children: [Text.new("text")] of Child),
       ] of Child),
       IFrame.new(href: "https://example.com"),

@@ -79,16 +79,37 @@ module Nodes
   end
 
   class Image
-    IMAGE_HOST = "https://cdn-images-1.medium.com"
+    IMAGE_HOST = "https://cdn-images-1.medium.com/fit/c"
+    MAX_WIDTH = 800
 
-    getter src : String
+    getter originalHeight : Int32
+    getter originalWidth : Int32
 
-    def initialize(src : String)
-      @src = "#{IMAGE_HOST}/#{src}"
+    def initialize(@src : String, @originalWidth : Int32, @originalHeight : Int32)
     end
 
     def ==(other : Image)
       other.src == src
+    end
+
+    def src
+      [IMAGE_HOST, width, height, @src].join("/")
+    end
+
+    def width
+      [originalWidth, MAX_WIDTH].min.to_s
+    end
+
+    def height
+      if originalWidth > MAX_WIDTH
+        (originalHeight * ratio).round.to_i.to_s
+      else
+        originalHeight.to_s
+      end
+    end
+
+    private def ratio
+      MAX_WIDTH / originalWidth
     end
 
     def empty?
