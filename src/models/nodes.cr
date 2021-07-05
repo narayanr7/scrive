@@ -123,6 +123,10 @@ module Nodes
     def initialize(@href : String)
     end
 
+    def domain
+      URI.parse(href).host
+    end
+
     def ==(other : IFrame)
       other.href == href
     end

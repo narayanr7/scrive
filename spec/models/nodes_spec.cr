@@ -1,6 +1,14 @@
 require "../spec_helper"
 
 module Nodes
+  describe IFrame do
+    it "returns embedded url with subdomains" do
+      iframe = IFrame.new(href: "https://dev.example.com/page")
+
+      iframe.domain.should eq("dev.example.com")
+    end
+  end
+
   describe Image do
     it "adjusts the width and height proportionally" do
       image = Image.new(src: "image.png", originalWidth: 1000, originalHeight: 603)

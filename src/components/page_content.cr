@@ -57,7 +57,7 @@ class PageContent < BaseComponent
   def render_child(child : IFrame)
     div class: "embedded" do
       a href: child.href do
-        text "Click to visit embedded content"
+        text "Embedded content at #{child.domain}"
       end
     end
   end

@@ -156,7 +156,13 @@ describe PageContent do
 
     html = PageContent.new(page: page).render_to_string
 
-    html.should eq %(<p><div class="embedded"><a href="https://example.com">Click to visit embedded content</a></div></p>)
+    html.should eq stripped_html <<-HTML
+      <p>
+        <div class="embedded">
+          <a href="https://example.com">Embedded content at example.com</a>
+        </div>
+      </p>
+    HTML
   end
 
   it "renders an ordered list" do
