@@ -87,6 +87,26 @@ describe PageContent do
     html.should eq %(<p>This is <em>neat!</em></p>)
   end
 
+  it "renders a figure and figure caption" do
+    page = Page.new(nodes: [
+      Figure.new(children: [
+        Image.new(src: "image.png"),
+        FigureCaption.new(children: [
+          Text.new("A caption")
+        ] of Child),
+      ] of Child),
+    ] of Child)
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq stripped_html <<-HTML
+      <figure>
+        <img src="https://cdn-images-1.medium.com/image.png">
+        <figcaption>A caption</figcaption>
+      </figure>
+    HTML
+  end
+
   it "renders an H3" do
     page = Page.new(nodes: [
       Heading3.new(children: [
@@ -206,4 +226,8 @@ describe PageContent do
 
     html.should eq %(<a href="https://medium.com/u/abc123">Some User</a>)
   end
+end
+
+def stripped_html(html : String)
+  html.gsub(/\n\s*/, "").strip
 end

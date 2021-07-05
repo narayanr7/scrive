@@ -38,6 +38,14 @@ class PageContent < BaseComponent
     raw "<!-- an Empty was rendered -->"
   end
 
+  def render_child(node : Figure)
+    figure { render_children(node.children) }
+  end
+
+  def render_child(node : FigureCaption)
+    figcaption { render_children(node.children) }
+  end
+
   def render_child(node : Heading3)
     h3 { render_children(node.children) }
   end

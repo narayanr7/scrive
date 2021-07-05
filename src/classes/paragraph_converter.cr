@@ -29,11 +29,7 @@ class ParagraphConverter
         end
       when PostResponse::ParagraphType::IMG
         paragraph = paragraphs.shift
-        if metadata = paragraph.metadata
-          node = Image.new(src: metadata.id)
-        else
-          node = Empty.new
-        end
+        node = convert_img(paragraph)
       when PostResponse::ParagraphType::OLI
         list_items = convert_oli(paragraphs)
         node = OrderedList.new(children: list_items)
@@ -74,6 +70,18 @@ class ParagraphConverter
       [ListItem.new(children: children)] + convert_oli(paragraphs)
     else
       [] of Child
+    end
+  end
+
+  private def convert_img(paragraph : PostResponse::Paragraph) : Child
+    if metadata = paragraph.metadata
+      caption_markup = MarkupConverter.convert(paragraph.text, paragraph.markups)
+      Figure.new(children: [
+        Image.new(src: metadata.id),
+        FigureCaption.new(children: caption_markup)
+      ] of Child)
+    else
+      Empty.new
     end
   end
 end

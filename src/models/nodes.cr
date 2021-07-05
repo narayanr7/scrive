@@ -33,6 +33,12 @@ module Nodes
   class Emphasis < Container
   end
 
+  class Figure < Container
+  end
+
+  class FigureCaption < Container
+  end
+
   class Heading3 < Container
   end
 

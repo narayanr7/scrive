@@ -158,6 +158,48 @@ describe ParagraphConverter do
     result.should eq expected
   end
 
+  it "converts an IMG to a Figure" do
+    paragraph = PostResponse::Paragraph.from_json <<-JSON
+      {
+        "text": "Image by someuser",
+        "type": "IMG",
+        "markups": [
+          {
+            "title": "",
+            "type": "A",
+            "href": "https://unsplash.com/@someuser",
+            "userId": null,
+            "start": 9,
+            "end": 17,
+            "rel": "photo-creator",
+            "anchorType": "LINK"
+          }
+        ],
+        "href": null,
+        "iframe": null,
+        "layout": "INSET_CENTER",
+        "metadata": {
+          "id": "image.png",
+          "originalWidth": 618,
+          "originalHeight": 682
+        }
+      }
+    JSON
+    expected = [
+      Figure.new(children: [
+        Image.new(src: "image.png"),
+        FigureCaption.new(children: [
+          Text.new("Image by "),
+          Anchor.new(href: "https://unsplash.com/@someuser", text: "someuser"),
+        ] of Child),
+      ] of Child),
+    ]
+
+    result = ParagraphConverter.new.convert([paragraph])
+
+    result.should eq expected
+  end
+
   it "converts all the tags" do
     paragraphs = Array(PostResponse::Paragraph).from_json <<-JSON
       [
@@ -260,7 +302,10 @@ describe ParagraphConverter do
       BlockQuote.new([Text.new("text")] of Child),
       UnorderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
       OrderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
-      Image.new(src: "1*miroimage.png"),
+      Figure.new(children: [
+        Image.new(src: "1*miroimage.png"),
+        FigureCaption.new(children: [Text.new("text")] of Child),
+      ] of Child),
       IFrame.new(href: "https://example.com"),
     ]
 
