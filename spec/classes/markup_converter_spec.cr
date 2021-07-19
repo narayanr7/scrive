@@ -3,31 +3,18 @@ require "../spec_helper"
 include Nodes
 
 describe MarkupConverter do
-  it "returns just text with no markups" do
-    json = <<-JSON
-      {
-        "text": "Hello, world",
-        "type": "P",
-        "markups": [],
-        "href": null,
-        "iframe": null,
-        "layout": null,
-        "metadata": null
-      }
-    JSON
-    paragraph = PostResponse::Paragraph.from_json(json)
+  describe "#convert" do
+    it "returns just text with no markups" do
+      markups = [] of PostResponse::Markup
 
-    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+      result = MarkupConverter.convert(text: "Hello, world", markups: markups)
 
-    result.should eq([Text.new(content: "Hello, world")])
-  end
+      result.should eq([Text.new(content: "Hello, world")])
+    end
 
-  it "returns just text with multiple markups" do
-    json = <<-JSON
-      {
-        "text": "strong and emphasized only",
-        "type": "P",
-        "markups": [
+    it "returns text with multiple markups" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
           {
             "title": null,
             "type": "STRONG",
@@ -46,31 +33,22 @@ describe MarkupConverter do
             "rel": null,
             "anchorType": null
           }
-        ],
-        "href": null,
-        "iframe": null,
-        "layout": null,
-        "metadata": null
-      }
-    JSON
-    paragraph = PostResponse::Paragraph.from_json(json)
+        ]
+      JSON
 
-    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+      result = MarkupConverter.convert(text: "strong and emphasized only", markups: markups)
 
-    result.should eq([
-      Strong.new(children: [Text.new(content: "strong")] of Child),
-      Text.new(content: " and "),
-      Emphasis.new(children: [Text.new(content: "emphasized")] of Child),
-      Text.new(content: " only"),
-    ])
-  end
+      result.should eq([
+        Strong.new(children: [Text.new(content: "strong")] of Child),
+        Text.new(content: " and "),
+        Emphasis.new(children: [Text.new(content: "emphasized")] of Child),
+        Text.new(content: " only"),
+      ])
+    end
 
-  it "returns just text with a code markup" do
-    json = <<-JSON
-      {
-        "text": "inline code",
-        "type": "P",
-        "markups": [
+    it "returns text with a code markup" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
           {
             "title": null,
             "type": "CODE",
@@ -80,29 +58,20 @@ describe MarkupConverter do
             "rel": null,
             "anchorType": null
           }
-        ],
-        "href": null,
-        "iframe": null,
-        "layout": null,
-        "metadata": null
-      }
-    JSON
-    paragraph = PostResponse::Paragraph.from_json(json)
+        ]
+      JSON
 
-    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+      result = MarkupConverter.convert(text: "inline code", markups: markups)
 
-    result.should eq([
-      Text.new(content: "inline "),
-      Code.new(children: [Text.new(content: "code")] of Child),
-    ])
-  end
+      result.should eq([
+        Text.new(content: "inline "),
+        Code.new(children: [Text.new(content: "code")] of Child),
+      ])
+    end
 
-  it "renders an A LINK markup" do
-    json = <<-JSON
-      {
-        "text": "I am a Link",
-        "type": "P",
-        "markups": [
+    it "renders an A-LINK markup" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
           {
             "title": "",
             "type": "A",
@@ -112,30 +81,20 @@ describe MarkupConverter do
             "rel": "",
             "anchorType": "LINK"
           }
-        ],
-        "href": null,
-        "iframe": null,
-        "layout": null,
-        "metadata": null
-      }
-    JSON
+        ]
+      JSON
 
-    paragraph = PostResponse::Paragraph.from_json(json)
+      result = MarkupConverter.convert(text: "I am a Link", markups: markups)
 
-    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+      result.should eq([
+        Text.new("I am a "),
+        Anchor.new(children: [Text.new("Link")] of Child, href: "https://example.com"),
+      ])
+    end
 
-    result.should eq([
-      Text.new("I am a "),
-      Anchor.new(children: [Text.new("Link")] of Child, href: "https://example.com"),
-    ])
-  end
-
-  it "renders an A USER markup" do
-    json = <<-JSON
-      {
-        "text": "Hi Dr Nick!",
-        "type": "P",
-        "markups": [
+    it "renders an A-USER markup" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
           {
             "title": null,
             "type": "A",
@@ -146,22 +105,92 @@ describe MarkupConverter do
             "rel": null,
             "anchorType": "USER"
           }
-        ],
-        "href": null,
-        "iframe": null,
-        "layout": null,
-        "metadata": null
-      }
-    JSON
+        ]
+      JSON
 
-    paragraph = PostResponse::Paragraph.from_json(json)
+      result = MarkupConverter.convert(text: "Hi Dr Nick!", markups: markups)
 
-    result = MarkupConverter.convert(text: paragraph.text, markups: paragraph.markups)
+      result.should eq([
+        Text.new("Hi "),
+        UserAnchor.new(children: [Text.new("Dr Nick")] of Child, userId: "abc123"),
+        Text.new("!"),
+      ])
+    end
 
-    result.should eq([
-      Text.new("Hi "),
-      UserAnchor.new(children: [Text.new("Dr Nick")] of Child, userId: "abc123"),
-      Text.new("!"),
-    ])
+    it "renders overlapping markups" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
+          {
+            "title": null,
+            "type": "STRONG",
+            "href": null,
+            "userId": null,
+            "start": 7,
+            "end": 15,
+            "rel": null,
+            "anchorType": null
+          },
+          {
+            "title": null,
+            "type": "EM",
+            "href": null,
+            "userId": null,
+            "start": 0,
+            "end": 10,
+            "rel": null,
+            "anchorType": null
+          }
+        ]
+      JSON
+
+      result = MarkupConverter.convert(text: "Italic and bold", markups: markups)
+
+      result.should eq([
+        Emphasis.new(children: [Text.new("Italic ")] of Child),
+        Emphasis.new(children: [
+          Strong.new(children: [Text.new("and")] of Child),
+        ] of Child),
+        Strong.new(children: [Text.new(" bold")] of Child),
+      ])
+    end
+  end
+
+  describe "#wrap_in_markups" do
+    it "returns text wrapped in multiple markups" do
+      markups = Array(PostResponse::Markup).from_json <<-JSON
+        [
+          {
+            "title": null,
+            "type": "STRONG",
+            "href": null,
+            "start": 0,
+            "end": 17,
+            "rel": null,
+            "anchorType": null
+          },
+          {
+            "title": null,
+            "type": "A",
+            "href": null,
+            "userId": "abc123",
+            "start": 13,
+            "end": 17,
+            "rel": null,
+            "anchorType": "USER"
+          }
+        ]
+      JSON
+      converter = MarkupConverter.new(text: "it's ya boi, jack", markups: markups)
+
+      result = converter.wrap_in_markups("jack", markups)
+
+      result.should eq([
+        UserAnchor.new(children: [
+          Strong.new([
+            Text.new("jack"),
+          ] of Child),
+        ] of Child, userId: "abc123"),
+      ])
+    end
   end
 end

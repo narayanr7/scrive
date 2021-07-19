@@ -1,7 +1,8 @@
-struct StringSplit
-  getter pre, content, post
+struct RangeWithMarkup
+  getter range : Range(Int32, Int32)
+  getter markups : Array(PostResponse::Markup)
 
-  def initialize(@pre : String, @content : String, @post : String)
+  def initialize(@range : Range, @markups : Array(PostResponse::Markup))
   end
 end
 
@@ -19,64 +20,53 @@ class MarkupConverter
   end
 
   def convert : Array(Child)
-    if markups.empty?
-      return [Text.new(content: text)] of Child
+    ranges.flat_map do |range_with_markups|
+      text_to_wrap = text[range_with_markups.range]
+      wrap_in_markups(text_to_wrap, range_with_markups.markups)
     end
-    offset = 0
-    text_splits = markups.reduce([text]) do |splits, markup|
-      individual_split = split_string(markup.start - offset, markup.end - offset, splits.pop)
-      offset = markup.end
-      splits.push(individual_split.pre)
-      splits.push(individual_split.content)
-      splits.push(individual_split.post)
-    end
-    text_splits.in_groups_of(2, "").map_with_index do |split, index|
-      plain, to_be_marked = split
-      markup = markups.fetch(index, Text.new(""))
-      if markup.is_a?(Text)
-        [Text.new(plain)] of Child
-      else
-        case markup.type
-        when PostResponse::MarkupType::A
-          if href = markup.href
-            container = Anchor.new(children: [Text.new(to_be_marked)] of Child, href: href)
-          elsif userId = markup.userId
-            container = UserAnchor.new(children: [Text.new(to_be_marked)] of Child, userId: userId)
-          else
-            container = Empty.new
-          end
-        when PostResponse::MarkupType::CODE
-          container = construct_markup(text: to_be_marked, container: Code)
-        when PostResponse::MarkupType::EM
-          container = construct_markup(text: to_be_marked, container: Emphasis)
-        when PostResponse::MarkupType::STRONG
-          container = construct_markup(text: to_be_marked, container: Strong)
-        else
-          container = construct_markup(text: to_be_marked, container: Code)
-        end
-        [Text.new(plain), container] of Child
+  end
+
+  private def ranges
+    markup_boundaries = markups.flat_map { |markup| [markup.start, markup.end] }
+    bookended_markup_boundaries = ([0] + markup_boundaries + [text.size]).uniq.sort
+    bookended_markup_boundaries.each_cons(2).map do |boundaries|
+      range = (boundaries[0]...boundaries[1])
+      covered_markups = markups.select do |markup|
+        range.covers?(markup.start) || range.covers?(markup.end - 1)
       end
-    end.flatten.reject(&.empty?)
+      RangeWithMarkup.new(range, covered_markups)
+    end.to_a
   end
 
-  private def construct_markup(text : String, container : Container.class) : Child
-    container.new(children: [Text.new(content: text)] of Child)
+  def wrap_in_markups(child : String | Child, markups : Array(PostResponse::Markup)) : Array(Child)
+    if child.is_a?(String)
+      child = Text.new(child)
+    end
+    if markups.first?.nil?
+      return [child] of Child
+    end
+    marked_up = markup_node_in_container(child, markups[0])
+    wrap_in_markups(marked_up, markups[1..])
   end
 
-  private def split_string(start : Int32, finish : Int32, string : String)
-    if start.zero?
-      pre = ""
+  private def markup_node_in_container(child : Child, markup : PostResponse::Markup)
+    case markup.type
+    when PostResponse::MarkupType::A
+      if href = markup.href
+        Anchor.new(href: href, children: [child] of Child)
+      elsif userId = markup.userId
+        UserAnchor.new(userId: userId, children: [child] of Child)
+      else
+        Empty.new
+      end
+    when PostResponse::MarkupType::CODE
+      Code.new(children: [child] of Child)
+    when PostResponse::MarkupType::EM
+      Emphasis.new(children: [child] of Child)
+    when PostResponse::MarkupType::STRONG
+      Strong.new(children: [child] of Child)
     else
-      pre = string[0...start]
+      Code.new(children: [child] of Child)
     end
-
-    if finish == string.size
-      post = ""
-    else
-      post = string[finish...string.size]
-    end
-
-    content = string[start...finish]
-    StringSplit.new(pre, content, post)
   end
 end
