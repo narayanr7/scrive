@@ -47,6 +47,7 @@ class PostResponse
     IMG
     OLI
     P
+    PQ
     PRE
     ULI
   end

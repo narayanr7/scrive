@@ -246,6 +246,15 @@ describe ParagraphConverter do
         },
         {
           "text": "text",
+          "type": "PQ",
+          "markups": [],
+          "href": null,
+          "iframe": null,
+          "layout": null,
+          "metadata": null
+        },
+        {
+          "text": "text",
           "type": "ULI",
           "markups": [],
           "href": null,
@@ -295,7 +304,8 @@ describe ParagraphConverter do
       Heading4.new([Text.new("text")] of Child),
       Paragraph.new([Text.new("text")] of Child),
       Preformatted.new([Text.new("text")] of Child),
-      BlockQuote.new([Text.new("text")] of Child),
+      BlockQuote.new([Text.new("text")] of Child), # BQ
+      BlockQuote.new([Text.new("text")] of Child), # PQ
       UnorderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
       OrderedList.new([ListItem.new([Text.new("text")] of Child)] of Child),
       Figure.new(children: [
