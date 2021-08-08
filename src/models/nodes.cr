@@ -1,5 +1,5 @@
 module Nodes
-  alias Leaf = Text | Image | IFrame | Anchor | UserAnchor
+  alias Leaf = Text | Image | IFrame
   alias Child = Container | Leaf | Empty
   alias Children = Array(Child)
 
@@ -136,15 +136,14 @@ module Nodes
     end
   end
 
-  class Anchor
+  class Anchor < Container
     getter href : String
-    getter text : String
 
-    def initialize(@href : String, @text : String)
+    def initialize(@children : Children, @href : String)
     end
 
     def ==(other : Anchor)
-      other.href == href && other.text == text
+      other.children == children && other.href == href
     end
 
     def empty?
@@ -152,18 +151,17 @@ module Nodes
     end
   end
 
-  class UserAnchor
+  class UserAnchor < Container
     USER_BASE_URL = "https://medium.com/u/"
 
     getter href : String
-    getter text : String
 
-    def initialize(userId : String, @text : String)
+    def initialize(@children : Children, userId : String)
       @href = USER_BASE_URL + userId
     end
 
     def ==(other : UserAnchor)
-      other.href == href && other.text == text
+      other.children == children && other.href == href
     end
 
     def empty?

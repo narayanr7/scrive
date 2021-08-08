@@ -13,7 +13,7 @@ class PageContent < BaseComponent
   end
 
   def render_child(node : Anchor)
-    a(href: node.href) { text node.text }
+    a(href: node.href) { render_children(node.children) }
   end
 
   def render_child(node : BlockQuote)
@@ -95,6 +95,6 @@ class PageContent < BaseComponent
   end
 
   def render_child(node : UserAnchor)
-    a(href: node.href) { text node.text }
+    a(href: node.href) { render_children(node.children) }
   end
 end

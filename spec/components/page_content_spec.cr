@@ -40,7 +40,7 @@ describe PageContent do
 
   it "renders an anchor" do
     page = Page.new(nodes: [
-      Anchor.new(href: "https://example.com", text: "link"),
+      Anchor.new(children: [Text.new("link")] of Child, href: "https://example.com"),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -229,7 +229,7 @@ describe PageContent do
 
   it "renders a user anchor" do
     page = Page.new(nodes: [
-      UserAnchor.new(userId: "abc123", text: "Some User"),
+      UserAnchor.new(children: [Text.new("Some User")] of Child, userId: "abc123"),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string

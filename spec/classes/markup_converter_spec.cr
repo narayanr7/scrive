@@ -126,7 +126,7 @@ describe MarkupConverter do
 
     result.should eq([
       Text.new("I am a "),
-      Anchor.new(text: "Link", href: "https://example.com"),
+      Anchor.new(children: [Text.new("Link")] of Child, href: "https://example.com"),
     ])
   end
 
@@ -160,7 +160,7 @@ describe MarkupConverter do
 
     result.should eq([
       Text.new("Hi "),
-      UserAnchor.new(text: "Dr Nick", userId: "abc123"),
+      UserAnchor.new(children: [Text.new("Dr Nick")] of Child, userId: "abc123"),
       Text.new("!"),
     ])
   end

@@ -190,7 +190,10 @@ describe ParagraphConverter do
         Image.new(src: "image.png", originalWidth: 1000, originalHeight: 600),
         FigureCaption.new(children: [
           Text.new("Image by "),
-          Anchor.new(href: "https://unsplash.com/@someuser", text: "someuser"),
+          Anchor.new(
+            children: [Text.new("someuser")] of Child,
+            href: "https://unsplash.com/@someuser"
+          ),
         ] of Child),
       ] of Child),
     ]

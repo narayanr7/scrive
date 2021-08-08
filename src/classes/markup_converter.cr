@@ -39,9 +39,9 @@ class MarkupConverter
         case markup.type
         when PostResponse::MarkupType::A
           if href = markup.href
-            container = Anchor.new(href: href, text: to_be_marked)
+            container = Anchor.new(children: [Text.new(to_be_marked)] of Child, href: href)
           elsif userId = markup.userId
-            container = UserAnchor.new(userId: userId, text: to_be_marked)
+            container = UserAnchor.new(children: [Text.new(to_be_marked)] of Child, userId: userId)
           else
             container = Empty.new
           end
