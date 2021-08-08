@@ -7,13 +7,6 @@ class MediumClient
     PostResponse::Root.from_json(response.body)
   end
 
-  def self.media_data(media_id : String) : MediaResponse::Root
-    client = HTTP::Client.new("medium.com", tls: true)
-    response = client.get("/media/#{media_id}", headers: headers)
-    body = response.body.sub(JSON_HIJACK_STRING, nil)
-    MediaResponse::Root.from_json(body)
-  end
-
   private def self.headers : HTTP::Headers
     HTTP::Headers{
       "Accept"       => "application/json",
@@ -46,7 +39,7 @@ class MediumClient
                 href
                 iframe {
                   mediaResource {
-                    id
+                    href
                   }
                 }
                 metadata {

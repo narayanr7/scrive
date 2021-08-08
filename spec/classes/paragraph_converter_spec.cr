@@ -3,13 +3,6 @@ require "../spec_helper"
 include Nodes
 
 describe ParagraphConverter do
-  around_each do |example|
-    original_client = IFrameMediaResolver.http_client
-    IFrameMediaResolver.http_client = FakeMediumClient
-    example.run
-    IFrameMediaResolver.http_client = original_client
-  end
-
   it "converts a simple structure with no markups" do
     paragraphs = Array(PostResponse::Paragraph).from_json <<-JSON
       [
@@ -289,7 +282,7 @@ describe ParagraphConverter do
           "href": null,
           "iframe": {
             "mediaResource": {
-              "id": "7c6231d165bf9fc1853f259a7b55bd14"
+              "href": "https://example.com"
             }
           },
           "layout": null,

@@ -78,7 +78,7 @@ class PostResponse
   end
 
   class MediaResource < Base
-    property id : String
+    property href : String
   end
 
   class Metadata < Base

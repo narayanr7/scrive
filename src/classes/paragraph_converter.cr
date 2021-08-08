@@ -21,9 +21,7 @@ class ParagraphConverter
       when PostResponse::ParagraphType::IFRAME
         paragraph = paragraphs.shift
         if iframe = paragraph.iframe
-          resolver = IFrameMediaResolver.new(iframe: iframe)
-          href = resolver.fetch_href
-          node = IFrame.new(href: href)
+          node = IFrame.new(href: iframe.mediaResource.href)
         else
           node = Empty.new
         end
