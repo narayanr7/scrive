@@ -60,7 +60,7 @@ describe ParagraphConverter do
       Paragraph.new(children: [
         Text.new(content: "inline "),
         Code.new(children: [Text.new(content: "code")] of Child),
-      ] of Child)
+      ] of Child),
     ]
 
     result = ParagraphConverter.new.convert(paragraphs)

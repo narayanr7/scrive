@@ -7,7 +7,7 @@ describe PageContent do
     page = Page.new(nodes: [
       Paragraph.new(children: [
         Text.new(content: "hi"),
-      ] of Child)
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -20,17 +20,17 @@ describe PageContent do
       Paragraph.new(children: [
         Text.new(content: "Hello, "),
         Emphasis.new(children: [
-          Text.new(content: "World!")
-        ] of Child)
+          Text.new(content: "World!"),
+        ] of Child),
       ] of Child),
       UnorderedList.new(children: [
         ListItem.new(children: [
-          Text.new(content: "List!")
+          Text.new(content: "List!"),
         ] of Child),
         ListItem.new(children: [
           Text.new(content: "Again!"),
-        ] of Child)
-      ] of Child)
+        ] of Child),
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -51,8 +51,8 @@ describe PageContent do
   it "renders a blockquote" do
     page = Page.new(nodes: [
       BlockQuote.new(children: [
-        Text.new("Wayne Gretzky. Michael Scott.")
-      ] of Child)
+        Text.new("Wayne Gretzky. Michael Scott."),
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -63,8 +63,8 @@ describe PageContent do
   it "renders code" do
     page = Page.new(nodes: [
       Code.new(children: [
-        Text.new("foo = bar")
-      ] of Child)
+        Text.new("foo = bar"),
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -77,7 +77,7 @@ describe PageContent do
       Paragraph.new(children: [
         Text.new(content: "This is "),
         Emphasis.new(children: [
-          Text.new(content: "neat!")
+          Text.new(content: "neat!"),
         ] of Child),
       ] of Child),
     ] of Child)
@@ -92,7 +92,7 @@ describe PageContent do
       Figure.new(children: [
         Image.new(src: "image.png", originalWidth: 100, originalHeight: 100),
         FigureCaption.new(children: [
-          Text.new("A caption")
+          Text.new("A caption"),
         ] of Child),
       ] of Child),
     ] of Child)
@@ -135,7 +135,7 @@ describe PageContent do
     page = Page.new(nodes: [
       Paragraph.new(children: [
         Image.new(src: "image.png", originalWidth: 100, originalHeight: 100),
-      ] of Child)
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
@@ -151,7 +151,7 @@ describe PageContent do
     page = Page.new(nodes: [
       Paragraph.new(children: [
         IFrame.new(href: "https://example.com"),
-      ] of Child)
+      ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string

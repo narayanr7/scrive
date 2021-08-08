@@ -126,7 +126,7 @@ describe MarkupConverter do
 
     result.should eq([
       Text.new("I am a "),
-      Anchor.new(text: "Link", href: "https://example.com")
+      Anchor.new(text: "Link", href: "https://example.com"),
     ])
   end
 

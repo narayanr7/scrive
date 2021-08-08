@@ -80,7 +80,7 @@ module Nodes
 
   class Image
     IMAGE_HOST = "https://cdn-images-1.medium.com/fit/c"
-    MAX_WIDTH = 800
+    MAX_WIDTH  = 800
 
     getter originalHeight : Int32
     getter originalWidth : Int32

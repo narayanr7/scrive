@@ -82,7 +82,7 @@ class ParagraphConverter
           originalWidth: metadata.originalWidth,
           originalHeight: metadata.originalHeight
         ),
-        FigureCaption.new(children: caption_markup)
+        FigureCaption.new(children: caption_markup),
       ] of Child)
     else
       Empty.new
