@@ -300,8 +300,8 @@ describe ParagraphConverter do
       ]
     JSON
     expected = [
+      Heading2.new([Text.new("text")] of Child),
       Heading3.new([Text.new("text")] of Child),
-      Heading4.new([Text.new("text")] of Child),
       Paragraph.new([Text.new("text")] of Child),
       Preformatted.new([Text.new("text")] of Child),
       BlockQuote.new([Text.new("text")] of Child), # BQ

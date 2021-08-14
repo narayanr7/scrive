@@ -46,12 +46,12 @@ class PageContent < BaseComponent
     figcaption { render_children(node.children) }
   end
 
-  def render_child(node : Heading3)
-    h3 { render_children(node.children) }
+  def render_child(node : Heading2)
+    h2 { render_children(node.children) }
   end
 
-  def render_child(node : Heading4)
-    h4 { render_children(node.children) }
+  def render_child(node : Heading3)
+    h3 { render_children(node.children) }
   end
 
   def render_child(child : IFrame)

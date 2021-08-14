@@ -109,26 +109,26 @@ describe PageContent do
 
   it "renders an H3" do
     page = Page.new(nodes: [
-      Heading3.new(children: [
+      Heading2.new(children: [
         Text.new(content: "Title!"),
       ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
 
-    html.should eq %(<h3>Title!</h3>)
+    html.should eq %(<h2>Title!</h2>)
   end
 
   it "renders an H4" do
     page = Page.new(nodes: [
-      Heading4.new(children: [
+      Heading3.new(children: [
         Text.new(content: "In Conclusion..."),
       ] of Child),
     ] of Child)
 
     html = PageContent.new(page: page).render_to_string
 
-    html.should eq %(<h4>In Conclusion...</h4>)
+    html.should eq %(<h3>In Conclusion...</h3>)
   end
 
   it "renders an image" do

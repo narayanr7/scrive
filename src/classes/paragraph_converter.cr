@@ -13,11 +13,11 @@ class ParagraphConverter
       when PostResponse::ParagraphType::H3
         paragraph = paragraphs.shift
         children = MarkupConverter.convert(paragraph.text, paragraph.markups)
-        node = Heading3.new(children: children)
+        node = Heading2.new(children: children)
       when PostResponse::ParagraphType::H4
         paragraph = paragraphs.shift
         children = MarkupConverter.convert(paragraph.text, paragraph.markups)
-        node = Heading4.new(children: children)
+        node = Heading3.new(children: children)
       when PostResponse::ParagraphType::IFRAME
         paragraph = paragraphs.shift
         if iframe = paragraph.iframe

@@ -39,10 +39,10 @@ module Nodes
   class FigureCaption < Container
   end
 
-  class Heading3 < Container
+  class Heading2 < Container
   end
 
-  class Heading4 < Container
+  class Heading3 < Container
   end
 
   class ListItem < Container
