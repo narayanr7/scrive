@@ -63,7 +63,7 @@ class PageContent < BaseComponent
   end
 
   def render_child(child : Image)
-    img src: child.src, width: child.width, height: child.height
+    img src: child.src, width: child.width
   end
 
   def render_child(node : ListItem)
