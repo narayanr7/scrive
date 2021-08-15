@@ -43,7 +43,16 @@ class PageContent < BaseComponent
   end
 
   def render_child(node : FigureCaption)
-    figcaption { render_children(node.children) }
+    writing_hand = "&#9997;"
+    text_variant = "&#xFE0E;"
+    footnote_id = node.children.hash.to_s
+    label class: "margin-toggle", for: footnote_id do
+      raw writing_hand + text_variant
+    end
+    input class: "margin-toggle", type: "checkbox", id: footnote_id
+    span class: "marginnote" do
+      render_children(node.children)
+    end
   end
 
   def render_child(node : Heading2)

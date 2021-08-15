@@ -112,15 +112,14 @@ describe PageContent do
   end
 
   it "renders a figure and figure caption" do
+    children = [Text.new("A caption")] of Child
     page = Page.new(
       title: "Title",
       subtitle: nil,
       nodes: [
         Figure.new(children: [
           Image.new(src: "image.png", originalWidth: 100, originalHeight: 200),
-          FigureCaption.new(children: [
-            Text.new("A caption"),
-          ] of Child),
+          FigureCaption.new(children: children),
         ] of Child),
       ] of Child
     )
@@ -130,7 +129,11 @@ describe PageContent do
     html.should eq stripped_html <<-HTML
       <figure>
         <img src="https://cdn-images-1.medium.com/fit/c/100/200/image.png" width="100">
-        <figcaption>A caption</figcaption>
+        <label class="margin-toggle" for="#{children.hash}">&#9997;&#xFE0E;</label>
+        <input class="margin-toggle" type="checkbox" id="#{children.hash}">
+        <span class="marginnote">
+          A caption
+        </span>
       </figure>
     HTML
   end
