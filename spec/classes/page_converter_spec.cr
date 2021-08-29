@@ -10,7 +10,6 @@ describe PageConverter do
           "text": "Title",
           "type": "H3",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -19,7 +18,6 @@ describe PageConverter do
           "text": "Subtitle",
           "type": "H4",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -40,7 +38,6 @@ describe PageConverter do
           "text": "Not a title",
           "type": "P",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -60,7 +57,6 @@ describe PageConverter do
           "text": "Title",
           "type": "H3",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -69,7 +65,6 @@ describe PageConverter do
           "text": "Subtitle",
           "type": "H4",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -78,7 +73,6 @@ describe PageConverter do
           "text": "Content",
           "type": "P",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null

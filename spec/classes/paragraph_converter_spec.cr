@@ -10,7 +10,6 @@ describe ParagraphConverter do
           "text": "Title",
           "type": "H3",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -42,7 +41,6 @@ describe ParagraphConverter do
               "anchorType": null
             }
           ],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -68,7 +66,6 @@ describe ParagraphConverter do
           "text": "One",
           "type": "ULI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -77,7 +74,6 @@ describe ParagraphConverter do
           "text": "Two",
           "type": "ULI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -86,7 +82,6 @@ describe ParagraphConverter do
           "text": "Not a list item",
           "type": "P",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -113,7 +108,6 @@ describe ParagraphConverter do
           "text": "One",
           "type": "OLI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -122,7 +116,6 @@ describe ParagraphConverter do
           "text": "Two",
           "type": "OLI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -131,7 +124,6 @@ describe ParagraphConverter do
           "text": "Not a list item",
           "type": "P",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -168,7 +160,6 @@ describe ParagraphConverter do
             "anchorType": "LINK"
           }
         ],
-        "href": null,
         "iframe": null,
         "layout": "INSET_CENTER",
         "metadata": {
@@ -203,7 +194,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "H3",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -212,7 +202,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "H4",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -221,7 +210,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "P",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -230,7 +218,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "PRE",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -239,7 +226,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "BQ",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -248,7 +234,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "PQ",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -257,7 +242,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "ULI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -266,7 +250,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "OLI",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": null
@@ -275,7 +258,6 @@ describe ParagraphConverter do
           "text": "text",
           "type": "IMG",
           "markups": [],
-          "href": null,
           "iframe": null,
           "layout": null,
           "metadata": {
@@ -288,7 +270,6 @@ describe ParagraphConverter do
           "text": "",
           "type": "IFRAME",
           "markups": [],
-          "href": null,
           "iframe": {
             "mediaResource": {
               "href": "https://example.com"

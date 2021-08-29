@@ -28,22 +28,23 @@ class MediumClient
               paragraphs {
                 text
                 type
+                href
+                layout
                 markups {
-                  name
+                  title
                   type
                   href
                   userId
                   start
                   end
+                  anchorType
                 }
-                href
                 iframe {
                   mediaResource {
                     href
                   }
                 }
                 metadata {
-                  __typename
                   id
                   originalWidth
                   originalHeight
