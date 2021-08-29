@@ -6718,6 +6718,11 @@ tty-browserify@0.0.0:
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
   integrity sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=
 
+tufte-css@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/tufte-css/-/tufte-css-1.8.0.tgz#16243dcde580716dbccaa40e097d1cbfbc7e8133"
+  integrity sha512-ZxL1CpgSfoafR885HLUi7lHuM7sIMrhokM4xC6ySKERJsOwnAB1Ag4bMQUveS1G9xr56VKFxP5APMRVGhoE4VQ==
+
 turbolinks@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/turbolinks/-/turbolinks-5.2.0.tgz#e6877a55ea5c1cb3bb225f0a4ae303d6d32ff77c"

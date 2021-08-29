@@ -22,7 +22,7 @@ if (mix.inProduction()) {
 mix
   .setPublicPath("public")
   .js("src/js/app.js", "js")
-  .sass("src/css/app.scss", "css")
+  .css("src/css/app.css", "css")
   .options({
     imgLoaderOptions: { enabled: false },
     clearConsole: false,
