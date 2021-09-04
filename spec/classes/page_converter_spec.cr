@@ -80,6 +80,31 @@ describe PageConverter do
     page.author.should eq "Author"
   end
 
+  it "sets the publish date/time" do
+    data_json = <<-JSON
+      {
+        "post": {
+          "title": "This is a story",
+          "createdAt": 1000,
+          "creator": {
+            "id": "abc123",
+            "name": "Author"
+          },
+          "content": {
+            "bodyModel": {
+              "paragraphs": []
+            }
+          }
+        }
+      }
+    JSON
+    data = PostResponse::Data.from_json(data_json)
+
+    page = PageConverter.new.convert(data)
+
+    page.created_at.should eq Time.utc(1970, 1, 1, 0, 0, 1)
+  end
+
   it "calls ParagraphConverter to convert the remaining paragraph content" do
     paragraph_json = <<-JSON
       [

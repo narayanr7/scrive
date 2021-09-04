@@ -13,6 +13,7 @@ class PostResponse
 
   class Post < Base
     property title : String
+    property createdAt : Int64
     property creator : Creator
     property content : Content
   end

@@ -19,6 +19,7 @@ class MediumClient
       query {
         post(id: "#{post_id}") {
           title
+          createdAt
           creator {
             id
             name
