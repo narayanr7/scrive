@@ -7,6 +7,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           Text.new(content: "hi"),
@@ -23,6 +24,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           Text.new(content: "Hello, "),
@@ -50,6 +52,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Anchor.new(children: [Text.new("link")] of Child, href: "https://example.com"),
       ] of Child
@@ -64,6 +67,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         BlockQuote.new(children: [
           Text.new("Wayne Gretzky. Michael Scott."),
@@ -80,6 +84,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Code.new(children: [
           Text.new("foo = bar"),
@@ -96,6 +101,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           Text.new(content: "This is "),
@@ -116,6 +122,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Figure.new(children: [
           Image.new(src: "image.png", originalWidth: 100, originalHeight: 200),
@@ -142,6 +149,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Heading2.new(children: [
           Text.new(content: "Title!"),
@@ -158,6 +166,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Heading3.new(children: [
           Text.new(content: "In Conclusion..."),
@@ -174,6 +183,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           Image.new(src: "image.png", originalWidth: 100, originalHeight: 200),
@@ -194,6 +204,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           IFrame.new(href: "https://example.com"),
@@ -216,6 +227,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         OrderedList.new(children: [
           ListItem.new(children: [Text.new("One")] of Child),
@@ -233,6 +245,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Paragraph.new(children: [
           Text.new("Hello, world!"),
@@ -249,6 +262,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Preformatted.new(children: [
           Text.new("New\nline"),
@@ -265,6 +279,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         Strong.new(children: [
           Text.new("Oh yeah!"),
@@ -281,6 +296,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         UnorderedList.new(children: [
           ListItem.new(children: [Text.new("Apple")] of Child),
@@ -298,6 +314,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
+      author: "Author",
       nodes: [
         UserAnchor.new(children: [Text.new("Some User")] of Child, userId: "abc123"),
       ] of Child

@@ -1,18 +1,54 @@
+struct HeaderData
+  getter title : String
+  getter subtitle : String?
+
+  def initialize(@title : String, @subtitle : String?)
+  end
+
+  def first_content_paragraph_index : Int32
+    if title.blank?
+      0
+    elsif subtitle.nil? || subtitle.blank?
+      1
+    else
+      2
+    end
+  end
+end
+
 class PageConverter
-  def convert(paragraphs : Array(PostResponse::Paragraph)) : Page
+  def convert(data : PostResponse::Data) : Page
+    paragraphs = data.post.content.bodyModel.paragraphs
+    author = data.post.creator.name
+    header = header_data(paragraphs)
+    if header.first_content_paragraph_index.zero?
+      content = [] of PostResponse::Paragraph
+    else
+      content = paragraphs[header.first_content_paragraph_index..]
+    end
+    Page.new(
+      title: header.title,
+      subtitle: header.subtitle,
+      author: author,
+      nodes: ParagraphConverter.new.convert(content)
+    )
+  end
+
+  def header_data(paragraphs : Array(PostResponse::Paragraph)) : HeaderData
+    if paragraphs.empty?
+      return HeaderData.new("", nil)
+    end
     first_two_paragraphs = paragraphs.first(2)
     first_two_types = first_two_paragraphs.map(&.type)
     if first_two_types == [PostResponse::ParagraphType::H3, PostResponse::ParagraphType::H4]
-      Page.new(
+      HeaderData.new(
         title: first_two_paragraphs[0].text,
         subtitle: first_two_paragraphs[1].text,
-        nodes: ParagraphConverter.new.convert(paragraphs[2..]),
       )
     else
-      Page.new(
+      HeaderData.new(
         title: first_two_paragraphs[0].text,
         subtitle: nil,
-        nodes: ParagraphConverter.new.convert(paragraphs[1..]),
       )
     end
   end

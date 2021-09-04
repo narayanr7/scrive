@@ -7,9 +7,7 @@ class Articles::Show < BrowserAction
     else
       response = MediumClient.post_data(post_id)
     end
-    page = PageConverter.new.convert(
-      response.data.post.content.bodyModel.paragraphs
-    )
+    page = PageConverter.new.convert(response.data)
     html ShowPage, page: page
   end
 end

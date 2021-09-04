@@ -4,7 +4,7 @@ include Nodes
 
 describe PageConverter do
   it "sets the title and subtitle if present" do
-    paragraphs = Array(PostResponse::Paragraph).from_json <<-JSON
+    paragraph_json = <<-JSON
       [
         {
           "text": "Title",
@@ -24,15 +24,17 @@ describe PageConverter do
         }
       ]
     JSON
+    data_json = default_data_json(paragraph_json)
+    data = PostResponse::Data.from_json(data_json)
 
-    page = PageConverter.new.convert(paragraphs)
+    page = PageConverter.new.convert(data)
 
     page.title.should eq "Title"
     page.subtitle.should eq "Subtitle"
   end
 
   it "sets the title to the first paragraph if no title" do
-    paragraphs = Array(PostResponse::Paragraph).from_json <<-JSON
+    paragraph_json = <<-JSON
       [
         {
           "text": "Not a title",
@@ -44,14 +46,42 @@ describe PageConverter do
         }
       ]
     JSON
-    page = PageConverter.new.convert(paragraphs)
+    data_json = default_data_json(paragraph_json)
+    data = PostResponse::Data.from_json(data_json)
+
+    page = PageConverter.new.convert(data)
 
     page.title.should eq "Not a title"
     page.subtitle.should eq nil
   end
 
+  it "sets the author" do
+    data_json = <<-JSON
+      {
+        "post": {
+          "title": "This is a story",
+          "createdAt": 0,
+          "creator": {
+            "id": "abc123",
+            "name": "Author"
+          },
+          "content": {
+            "bodyModel": {
+              "paragraphs": []
+            }
+          }
+        }
+      }
+    JSON
+    data = PostResponse::Data.from_json(data_json)
+
+    page = PageConverter.new.convert(data)
+
+    page.author.should eq "Author"
+  end
+
   it "calls ParagraphConverter to convert the remaining paragraph content" do
-    paragraphs = Array(PostResponse::Paragraph).from_json <<-JSON
+    paragraph_json = <<-JSON
       [
         {
           "text": "Title",
@@ -79,8 +109,10 @@ describe PageConverter do
         }
       ]
     JSON
+    data_json = default_data_json(paragraph_json)
+    data = PostResponse::Data.from_json(data_json)
 
-    page = PageConverter.new.convert(paragraphs)
+    page = PageConverter.new.convert(data)
 
     page.nodes.should eq [
       Paragraph.new([
@@ -88,4 +120,24 @@ describe PageConverter do
       ] of Child),
     ]
   end
+end
+
+def default_data_json(paragraph_json : String)
+  <<-JSON
+    {
+      "post": {
+        "title": "This is a story",
+        "createdAt": 1628974309758,
+        "creator": {
+          "id": "abc123",
+          "name": "Author"
+        },
+        "content": {
+          "bodyModel": {
+            "paragraphs": #{paragraph_json}
+          }
+        }
+      }
+    }
+  JSON
 end

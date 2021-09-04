@@ -10,6 +10,9 @@ class Articles::ShowPage < MainLayout
     if subtitle = page.subtitle
       para subtitle, class: "subtitle"
     end
+    para do
+      text "#{page.author}"
+    end
     article do
       section do
         mount PageContent, page: page
