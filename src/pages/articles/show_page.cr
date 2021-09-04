@@ -1,6 +1,10 @@
 class Articles::ShowPage < MainLayout
   needs page : Page
 
+  def page_title
+    page.title
+  end
+
   def content
     h1 page.title
     if subtitle = page.subtitle
