@@ -10,17 +10,13 @@ class Articles::ShowPage < MainLayout
     if subtitle = page.subtitle
       para subtitle, class: "subtitle"
     end
-    para do
-      text "#{page.author} #{created_at(page.created_at)}"
+    para class: "meta" do
+      text "#{page.author} on #{page.created_at.to_s("%F")}"
     end
     article do
       section do
         mount PageContent, page: page
       end
     end
-  end
-
-  def created_at(time : Time) : String
-    "at #{time.to_s("%I:%M%p")} on #{time.to_s("%F")}"
   end
 end
