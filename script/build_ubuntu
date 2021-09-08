@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Exit if any subcommand fails
+set -e
+set -o pipefail
+
+crystal build src/start_server.cr -o ubuntu_server --release --cross-compile --target "x86_64-pc-linux-gnu"
