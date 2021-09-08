@@ -277,6 +277,25 @@ describe ParagraphConverter do
           },
           "layout": null,
           "metadata": null
+        },
+        {
+          "text": "Mixtape",
+          "type": "MIXTAPE_EMBED",
+          "href": null,
+          "layout": null,
+          "markups": [
+            {
+              "title": "https://example.com",
+              "type": "A",
+              "href": "https://example.com",
+              "userId": null,
+              "start": 0,
+              "end": 7,
+              "anchorType": "LINK"
+            }
+          ],
+          "iframe": null,
+          "metadata": null
         }
       ]
     JSON
@@ -294,6 +313,12 @@ describe ParagraphConverter do
         FigureCaption.new(children: [Text.new("text")] of Child),
       ] of Child),
       IFrame.new(href: "https://example.com"),
+      MixtapeEmbed.new(children: [
+        Anchor.new(
+          children: [Text.new("Mixtape")] of Child,
+          href: "https://example.com"
+        ),
+      ] of Child),
     ]
 
     result = ParagraphConverter.new.convert(paragraphs)

@@ -46,6 +46,7 @@ class PostResponse
     H4
     IFRAME
     IMG
+    MIXTAPE_EMBED
     OLI
     P
     PQ

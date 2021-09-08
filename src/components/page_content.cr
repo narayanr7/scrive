@@ -79,6 +79,12 @@ class PageContent < BaseComponent
     li { render_children(node.children) }
   end
 
+  def render_child(node : MixtapeEmbed)
+    div class: "embedded" do
+      render_children(node.children)
+    end
+  end
+
   def render_child(node : OrderedList)
     ol { render_children(node.children) }
   end

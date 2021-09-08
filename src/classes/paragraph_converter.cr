@@ -28,6 +28,10 @@ class ParagraphConverter
       when PostResponse::ParagraphType::IMG
         paragraph = paragraphs.shift
         node = convert_img(paragraph)
+      when PostResponse::ParagraphType::MIXTAPE_EMBED
+        paragraph = paragraphs.shift
+        children = MarkupConverter.convert(paragraph.text, paragraph.markups)
+        node = MixtapeEmbed.new(children: children)
       when PostResponse::ParagraphType::OLI
         list_items = convert_oli(paragraphs)
         node = OrderedList.new(children: list_items)

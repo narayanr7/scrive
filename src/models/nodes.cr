@@ -48,6 +48,9 @@ module Nodes
   class ListItem < Container
   end
 
+  class MixtapeEmbed < Container
+  end
+
   class OrderedList < Container
   end
 

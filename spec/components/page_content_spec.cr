@@ -234,6 +234,35 @@ describe PageContent do
     HTML
   end
 
+  it "renders an mixtape embed container" do
+    page = Page.new(
+      title: "Title",
+      subtitle: nil,
+      author: "Author",
+      created_at: Time.local,
+      nodes: [
+        Paragraph.new(children: [
+          MixtapeEmbed.new(children: [
+            Anchor.new(
+              children: [Text.new("Mixtape")] of Child,
+              href: "https://example.com"
+            ),
+          ] of Child),
+        ] of Child),
+      ] of Child
+    )
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq stripped_html <<-HTML
+      <p>
+        <div class="embedded">
+          <a href="https://example.com">Mixtape</a>
+        </div>
+      </p>
+    HTML
+  end
+
   it "renders an ordered list" do
     page = Page.new(
       title: "Title",
