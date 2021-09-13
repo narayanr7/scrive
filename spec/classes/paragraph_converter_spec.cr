@@ -272,7 +272,10 @@ describe ParagraphConverter do
           "markups": [],
           "iframe": {
             "mediaResource": {
-              "href": "https://example.com"
+              "href": "https://example.com",
+              "iframeSrc": "",
+              "iframeWidth": 0,
+              "iframeHeight": 0
             }
           },
           "layout": null,
@@ -312,7 +315,7 @@ describe ParagraphConverter do
         Image.new(src: "1*miroimage.png", originalWidth: 618, originalHeight: 682),
         FigureCaption.new(children: [Text.new("text")] of Child),
       ] of Child),
-      IFrame.new(href: "https://example.com"),
+      EmbeddedLink.new(href: "https://example.com"),
       MixtapeEmbed.new(children: [
         Anchor.new(
           children: [Text.new("Mixtape")] of Child,

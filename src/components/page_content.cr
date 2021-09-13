@@ -29,6 +29,26 @@ class PageContent < BaseComponent
     raw "<!-- a Container was rendered -->"
   end
 
+  def render_child(child : EmbeddedContent)
+    div class: "iframe-wrapper" do
+      iframe(
+        src: child.src,
+        width: child.width,
+        height: child.height,
+        frameborder: "0",
+        allowfullscreen: true,
+      )
+    end
+  end
+
+  def render_child(child : EmbeddedLink)
+    div class: "embedded" do
+      a href: child.href do
+        text "Embedded content at #{child.domain}"
+      end
+    end
+  end
+
   def render_child(node : Emphasis)
     em { render_children(node.children) }
   end
@@ -55,20 +75,16 @@ class PageContent < BaseComponent
     end
   end
 
+  def render_child(child : GithubGist)
+    script src: child.src
+  end
+
   def render_child(node : Heading2)
     h2 { render_children(node.children) }
   end
 
   def render_child(node : Heading3)
     h3 { render_children(node.children) }
-  end
-
-  def render_child(child : IFrame)
-    div class: "embedded" do
-      a href: child.href do
-        text "Embedded content at #{child.domain}"
-      end
-    end
   end
 
   def render_child(child : Image)

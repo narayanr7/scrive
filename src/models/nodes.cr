@@ -1,5 +1,6 @@
 module Nodes
-  alias Leaf = Text | Image | IFrame
+  alias Embedded = EmbeddedLink | EmbeddedContent | GithubGist
+  alias Leaf = Text | Image | Embedded
   alias Child = Container | Leaf | Empty
   alias Children = Array(Child)
 
@@ -120,7 +121,40 @@ module Nodes
     end
   end
 
-  class IFrame
+  class EmbeddedContent
+    MAX_WIDTH = 800
+
+    getter src : String
+
+    def initialize(@src : String, @originalWidth : Int32, @originalHeight : Int32)
+    end
+
+    def width
+      [@originalWidth, MAX_WIDTH].min.to_s
+    end
+
+    def height
+      if @originalWidth > MAX_WIDTH
+        (@originalHeight * ratio).round.to_i.to_s
+      else
+        @originalHeight.to_s
+      end
+    end
+
+    private def ratio
+      MAX_WIDTH / @originalWidth
+    end
+
+    def ==(other : EmbeddedContent)
+      other.src == src && other.width == width && other.height == height
+    end
+
+    def empty?
+      false
+    end
+  end
+
+  class EmbeddedLink
     getter href : String
 
     def initialize(@href : String)
@@ -130,7 +164,7 @@ module Nodes
       URI.parse(href).host
     end
 
-    def ==(other : IFrame)
+    def ==(other : EmbeddedLink)
       other.href == href
     end
 
@@ -165,6 +199,23 @@ module Nodes
 
     def ==(other : UserAnchor)
       other.children == children && other.href == href
+    end
+
+    def empty?
+      false
+    end
+  end
+
+  class GithubGist
+    def initialize(@href : String)
+    end
+
+    def src
+      "#{@href}.js"
+    end
+
+    def ==(other : GithubGist)
+      other.src == src
     end
 
     def empty?

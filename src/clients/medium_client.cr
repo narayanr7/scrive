@@ -43,6 +43,9 @@ class MediumClient
                 iframe {
                   mediaResource {
                     href
+                    iframeSrc
+                    iframeWidth
+                    iframeHeight
                   }
                 }
                 metadata {

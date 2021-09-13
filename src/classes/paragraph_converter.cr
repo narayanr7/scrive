@@ -20,11 +20,7 @@ class ParagraphConverter
         node = Heading3.new(children: children)
       when PostResponse::ParagraphType::IFRAME
         paragraph = paragraphs.shift
-        if iframe = paragraph.iframe
-          node = IFrame.new(href: iframe.mediaResource.href)
-        else
-          node = Empty.new
-        end
+        node = EmbeddedConverter.convert(paragraph)
       when PostResponse::ParagraphType::IMG
         paragraph = paragraphs.shift
         node = convert_img(paragraph)

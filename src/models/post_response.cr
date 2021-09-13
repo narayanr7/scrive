@@ -82,6 +82,9 @@ class PostResponse
 
   class MediaResource < Base
     property href : String
+    property iframeSrc : String
+    property iframeWidth : Int32
+    property iframeHeight : Int32
   end
 
   class Metadata < Base

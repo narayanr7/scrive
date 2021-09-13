@@ -1,9 +1,9 @@
 require "../spec_helper"
 
 module Nodes
-  describe IFrame do
+  describe EmbeddedLink do
     it "returns embedded url with subdomains" do
-      iframe = IFrame.new(href: "https://dev.example.com/page")
+      iframe = EmbeddedLink.new(href: "https://dev.example.com/page")
 
       iframe.domain.should eq("dev.example.com")
     end
@@ -21,6 +21,19 @@ module Nodes
       image = Image.new(src: "image.png", originalWidth: 1000, originalHeight: 603)
 
       image.src.should eq("https://cdn-images-1.medium.com/fit/c/800/482/image.png")
+    end
+  end
+
+  describe EmbeddedContent do
+    it "adjusts the width and height proportionally" do
+      content = EmbeddedContent.new(
+        src: "https://example.com",
+        originalWidth: 1000,
+        originalHeight: 600,
+      )
+
+      content.width.should eq("800")
+      content.height.should eq("480")
     end
   end
 end

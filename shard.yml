@@ -26,6 +26,8 @@ dependencies:
   lucky_task:
     github: luckyframework/lucky_task
     version: ~> 0.1.0
+  monads:
+    github: alex-lairan/monads
 development_dependencies:
   lucky_flow:
     github: luckyframework/lucky_flow

@@ -152,6 +152,24 @@ describe PageContent do
     HTML
   end
 
+  it "renders a GitHub Gist" do
+    page = Page.new(
+      title: "Title",
+      subtitle: nil,
+      author: "Author",
+      created_at: Time.local,
+      nodes: [
+        GithubGist.new(href: "https://gist.github.com/user/some_id"),
+      ] of Child
+    )
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq stripped_html <<-HTML
+      <script src="https://gist.github.com/user/some_id.js"></script>
+    HTML
+  end
+
   it "renders an H3" do
     page = Page.new(
       title: "Title",
@@ -210,7 +228,32 @@ describe PageContent do
     HTML
   end
 
-  it "renders an iframe container" do
+  it "renders embedded content" do
+    page = Page.new(
+      title: "Title",
+      subtitle: nil,
+      author: "Author",
+      created_at: Time.local,
+      nodes: [
+        EmbeddedContent.new(
+          src: "https://example.com",
+          originalWidth: 1000,
+          originalHeight: 600,
+        ),
+      ] of Child
+    )
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq stripped_html <<-HTML
+      <div class="iframe-wrapper">
+        <iframe src="https://example.com" width="800" height="480" frameborder="0" allowfullscreen="true">
+        </iframe>
+      </div>
+    HTML
+  end
+
+  it "renders an embedded link container" do
     page = Page.new(
       title: "Title",
       subtitle: nil,
@@ -218,7 +261,7 @@ describe PageContent do
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
-          IFrame.new(href: "https://example.com"),
+          EmbeddedLink.new(href: "https://example.com"),
         ] of Child),
       ] of Child
     )
