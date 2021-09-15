@@ -17,7 +17,9 @@ class PageContent < BaseComponent
   end
 
   def render_child(node : BlockQuote)
-    blockquote { render_children(node.children) }
+    blockquote do
+      para { render_children(node.children) }
+    end
   end
 
   def render_child(node : Code)

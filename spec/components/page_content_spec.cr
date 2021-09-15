@@ -81,7 +81,7 @@ describe PageContent do
 
     html = PageContent.new(page: page).render_to_string
 
-    html.should eq %(<blockquote>Wayne Gretzky. Michael Scott.</blockquote>)
+    html.should eq %(<blockquote><p>Wayne Gretzky. Michael Scott.</p></blockquote>)
   end
 
   it "renders code" do
