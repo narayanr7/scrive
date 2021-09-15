@@ -112,7 +112,7 @@ describe MarkupConverter do
 
       result.should eq([
         Text.new("Hi "),
-        UserAnchor.new(children: [Text.new("Dr Nick")] of Child, userId: "abc123"),
+        UserAnchor.new(children: [Text.new("Dr Nick")] of Child, user_id: "abc123"),
         Text.new("!"),
       ])
     end
@@ -189,7 +189,7 @@ describe MarkupConverter do
           Strong.new([
             Text.new("jack"),
           ] of Child),
-        ] of Child, userId: "abc123"),
+        ] of Child, user_id: "abc123"),
       ])
     end
   end

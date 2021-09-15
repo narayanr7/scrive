@@ -77,7 +77,8 @@ describe PageConverter do
 
     page = PageConverter.new.convert(data)
 
-    page.author.should eq "Author"
+    page.author.name.should eq "Author"
+    page.author.id.should eq "abc123"
   end
 
   it "sets the publish date/time" do

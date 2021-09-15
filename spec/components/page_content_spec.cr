@@ -7,7 +7,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -25,7 +25,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -54,7 +54,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Anchor.new(children: [Text.new("link")] of Child, href: "https://example.com"),
@@ -70,7 +70,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         BlockQuote.new(children: [
@@ -88,7 +88,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Code.new(children: [
@@ -106,7 +106,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -128,7 +128,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Figure.new(children: [
@@ -156,7 +156,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         GithubGist.new(href: "https://gist.github.com/user/some_id"),
@@ -174,7 +174,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Heading2.new(children: [
@@ -192,7 +192,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Heading3.new(children: [
@@ -210,7 +210,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -232,7 +232,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         EmbeddedContent.new(
@@ -257,7 +257,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -281,7 +281,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -310,7 +310,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         OrderedList.new(children: [
@@ -329,7 +329,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Paragraph.new(children: [
@@ -347,7 +347,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Preformatted.new(children: [
@@ -365,7 +365,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         Strong.new(children: [
@@ -383,7 +383,7 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
         UnorderedList.new(children: [
@@ -402,10 +402,10 @@ describe PageContent do
     page = Page.new(
       title: "Title",
       subtitle: nil,
-      author: "Author",
+      author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
-        UserAnchor.new(children: [Text.new("Some User")] of Child, userId: "abc123"),
+        UserAnchor.new(children: [Text.new("Some User")] of Child, user_id: "abc123"),
       ] of Child
     )
 
@@ -417,4 +417,13 @@ end
 
 def stripped_html(html : String)
   html.gsub(/\n\s*/, "").strip
+end
+
+def user_anchor_factory(username = "someone", user_id = "abc123")
+  PostResponse::Creator.from_json <<-JSON
+    {
+      "id": "#{user_id}",
+      "name": "#{username}"
+    }
+  JSON
 end

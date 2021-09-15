@@ -193,8 +193,8 @@ module Nodes
 
     getter href : String
 
-    def initialize(@children : Children, userId : String)
-      @href = USER_BASE_URL + userId
+    def initialize(@children : Children, user_id : String)
+      @href = USER_BASE_URL + user_id
     end
 
     def ==(other : UserAnchor)

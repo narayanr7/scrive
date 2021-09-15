@@ -11,12 +11,17 @@ class Articles::ShowPage < MainLayout
       para subtitle, class: "subtitle"
     end
     para class: "meta" do
-      text "#{page.author} on #{page.created_at.to_s("%F")}"
+      text "#{author_link(page.author)} on #{page.created_at.to_s("%F")}"
     end
     article do
       section do
         mount PageContent, page: page
       end
     end
+  end
+
+  def author_link(creator : PostResponse::Creator)
+    href = Nodes::UserAnchor::USER_BASE_URL + creator.id
+    a(href: href) { text creator.name }
   end
 end

@@ -19,7 +19,7 @@ end
 class PageConverter
   def convert(data : PostResponse::Data) : Page
     paragraphs = data.post.content.bodyModel.paragraphs
-    author = data.post.creator.name
+    author = data.post.creator
     created_at = Time.unix_ms(data.post.createdAt)
     header = header_data(paragraphs)
     if header.first_content_paragraph_index.zero?

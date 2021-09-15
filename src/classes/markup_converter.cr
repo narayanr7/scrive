@@ -54,8 +54,8 @@ class MarkupConverter
     when PostResponse::MarkupType::A
       if href = markup.href
         Anchor.new(href: href, children: [child] of Child)
-      elsif userId = markup.userId
-        UserAnchor.new(userId: userId, children: [child] of Child)
+      elsif user_id = markup.userId
+        UserAnchor.new(user_id: user_id, children: [child] of Child)
       else
         Empty.new
       end
