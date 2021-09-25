@@ -246,10 +246,10 @@ describe PageContent do
     html = PageContent.new(page: page).render_to_string
 
     html.should eq stripped_html <<-HTML
-      <div class="iframe-wrapper">
+      <figure>
         <iframe src="https://example.com" width="800" height="480" frameborder="0" allowfullscreen="true">
         </iframe>
-      </div>
+      </figure>
     HTML
   end
 
@@ -270,9 +270,9 @@ describe PageContent do
 
     html.should eq stripped_html <<-HTML
       <p>
-        <div class="embedded">
+        <figure>
           <a href="https://example.com">Embedded content at example.com</a>
-        </div>
+        </figure>
       </p>
     HTML
   end
@@ -299,9 +299,11 @@ describe PageContent do
 
     html.should eq stripped_html <<-HTML
       <p>
-        <div class="embedded">
-          <a href="https://example.com">Mixtape</a>
-        </div>
+        <blockquote>
+          <p>
+            <a href="https://example.com">Mixtape</a>
+          </p>
+        </blockquote>
       </p>
     HTML
   end

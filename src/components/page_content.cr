@@ -32,7 +32,7 @@ class PageContent < BaseComponent
   end
 
   def render_child(child : EmbeddedContent)
-    div class: "iframe-wrapper" do
+    figure do
       iframe(
         src: child.src,
         width: child.width,
@@ -44,7 +44,7 @@ class PageContent < BaseComponent
   end
 
   def render_child(child : EmbeddedLink)
-    div class: "embedded" do
+    figure do
       a href: child.href do
         text "Embedded content at #{child.domain}"
       end
@@ -98,8 +98,8 @@ class PageContent < BaseComponent
   end
 
   def render_child(node : MixtapeEmbed)
-    div class: "embedded" do
-      render_children(node.children)
+    blockquote do
+      para { render_children(node.children) }
     end
   end
 
