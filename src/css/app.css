@@ -7,6 +7,10 @@ p.meta {
   line-height: 1;
 }
 
+.gist {
+  width: 55%;
+}
+
 figure iframe {
   max-width: 100%;
 }
