@@ -4,36 +4,43 @@ class Home::IndexPage < MainLayout
   end
 
   def content
-    post_id = "92f4e0bb9f53"
-    post_slug = "my-post-#{post_id}"
     h1 "Scribe"
-    h2 "How-To"
     article do
       section do
-        para "To view a medium post, you need the last part of the post's URL."
+        h2 "How-To"
+        para do
+          text "To view a Medium post simply replace "
+          code "medium.com", class: "highlight"
+          text " with "
+          code app_domain, class: "highlight"
+        end
         para do
           text "For example if the URL is: "
-          code "medium.com/@user/#{post_slug}"
-          text " or "
-          code "user.medium.com/#{post_slug}"
-          text " or "
-          code "somewebsite.com/blog/#{post_slug}"
-        end
-        para do
-          text " take "
-          code post_slug
-          text " and add it on to the end of Scribe's post URL: "
-        end
-        para do
-          code Articles::Show.with(post_slug: post_slug).url
+          code do
+            span "medium.com", class: "highlight"
+            text "/@user/my-post-09a6af907a2"
+          end
+          text " change it to "
+          code do
+            span app_domain, class: "highlight"
+            text "/@user/my-post-09a6af907a2"
+          end
         end
       end
       section do
-        para do
-          text "Hint: If you're feeling lazy, the URL only needs to be the nonsense at the end of the post URL. E.g. "
-          code Articles::Show.with(post_slug: post_id).url
+        footer do
+          para do
+            a "Source code", href: "https://git.sr.ht/~edwardloveall/scribe"
+          end
         end
       end
     end
+  end
+
+  def app_domain
+    URI.parse(Home::Index.url).normalize
+      .to_s
+      .sub(/\/$/, "")
+      .sub(/^https?:\/\//, "")
   end
 end
