@@ -1,23 +1,34 @@
 require "json"
 
 class Articles::Show < BrowserAction
-  get "/posts/:post_slug" do
-    id_match = post_slug.match(/([0-9a-f]{12})$/i)
-    if id_match
-      post_id = id_match[1]
-    else
-      return html(
+  fallback do
+    maybe_post_id = post_id(context.request.path)
+    case maybe_post_id
+    in Monads::Just
+      response = client_class.post_data(maybe_post_id.value!)
+      page = PageConverter.new.convert(response.data)
+      html ShowPage, page: page
+    in Monads::Nothing, Monads::Maybe
+      html(
         Errors::ShowPage,
         message: "Error parsing the URL",
         status: 500,
       )
     end
+  end
+
+  def post_id(request_path : String)
+    Monads::Try(Regex::MatchData)
+      .new(->{ request_path.match(/([0-9a-f]+)$/i) })
+      .to_maybe
+      .fmap(->(matches : Regex::MatchData) { matches[1] })
+  end
+
+  def client_class
     if Lucky::Env.use_local?
-      response = LocalClient.post_data(post_id)
+      LocalClient
     else
-      response = MediumClient.post_data(post_id)
+      MediumClient
     end
-    page = PageConverter.new.convert(response.data)
-    html ShowPage, page: page
   end
 end
