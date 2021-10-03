@@ -6,7 +6,6 @@ describe PageContent do
   it "renders a single parent/child node structure" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -24,7 +23,6 @@ describe PageContent do
   it "renders multiple childrens" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -53,7 +51,6 @@ describe PageContent do
   it "renders an anchor" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -69,7 +66,6 @@ describe PageContent do
   it "renders a blockquote" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -87,7 +83,6 @@ describe PageContent do
   it "renders code" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -105,7 +100,6 @@ describe PageContent do
   it "renders empasis" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -127,7 +121,6 @@ describe PageContent do
     children = [Text.new("A caption")] of Child
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -155,7 +148,6 @@ describe PageContent do
   it "renders a GitHub Gist" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -173,7 +165,6 @@ describe PageContent do
   it "renders an H3" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -191,7 +182,6 @@ describe PageContent do
   it "renders an H4" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -209,7 +199,6 @@ describe PageContent do
   it "renders an image" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -231,7 +220,6 @@ describe PageContent do
   it "renders embedded content" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -256,7 +244,6 @@ describe PageContent do
   it "renders an embedded link container" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -280,7 +267,6 @@ describe PageContent do
   it "renders an mixtape embed container" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -311,7 +297,6 @@ describe PageContent do
   it "renders an ordered list" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -330,7 +315,6 @@ describe PageContent do
   it "renders an preformatted text" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -348,7 +332,6 @@ describe PageContent do
   it "renders an preformatted text" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -366,7 +349,6 @@ describe PageContent do
   it "renders strong text" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -384,7 +366,6 @@ describe PageContent do
   it "renders an unordered list" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [
@@ -403,7 +384,6 @@ describe PageContent do
   it "renders a user anchor" do
     page = Page.new(
       title: "Title",
-      subtitle: nil,
       author: user_anchor_factory,
       created_at: Time.local,
       nodes: [

@@ -3,56 +3,26 @@ require "../spec_helper"
 include Nodes
 
 describe PageConverter do
-  it "sets the title and subtitle if present" do
+  it "sets the page title" do
+    title = "Hello, world!"
     paragraph_json = <<-JSON
       [
         {
-          "text": "Title",
+          "text": "#{title}",
           "type": "H3",
           "markups": [],
           "iframe": null,
           "layout": null,
           "metadata": null
-        },
-        {
-          "text": "Subtitle",
-          "type": "H4",
-          "markups": [],
-          "iframe": null,
-          "layout": null,
-          "metadata": null
         }
       ]
     JSON
-    data_json = default_data_json(paragraph_json)
+    data_json = default_data_json(title, paragraph_json)
     data = PostResponse::Data.from_json(data_json)
 
     page = PageConverter.new.convert(data)
 
-    page.title.should eq "Title"
-    page.subtitle.should eq "Subtitle"
-  end
-
-  it "sets the title to the first paragraph if no title" do
-    paragraph_json = <<-JSON
-      [
-        {
-          "text": "Not a title",
-          "type": "P",
-          "markups": [],
-          "iframe": null,
-          "layout": null,
-          "metadata": null
-        }
-      ]
-    JSON
-    data_json = default_data_json(paragraph_json)
-    data = PostResponse::Data.from_json(data_json)
-
-    page = PageConverter.new.convert(data)
-
-    page.title.should eq "Not a title"
-    page.subtitle.should eq nil
+    page.title.should eq title
   end
 
   it "sets the author" do
@@ -106,20 +76,13 @@ describe PageConverter do
     page.created_at.should eq Time.utc(1970, 1, 1, 0, 0, 1)
   end
 
-  it "calls ParagraphConverter to convert the remaining paragraph content" do
+  it "calls converts the remaining paragraph content" do
+    title = "Title"
     paragraph_json = <<-JSON
       [
         {
-          "text": "Title",
+          "text": "#{title}",
           "type": "H3",
-          "markups": [],
-          "iframe": null,
-          "layout": null,
-          "metadata": null
-        },
-        {
-          "text": "Subtitle",
-          "type": "H4",
           "markups": [],
           "iframe": null,
           "layout": null,
@@ -135,7 +98,7 @@ describe PageConverter do
         }
       ]
     JSON
-    data_json = default_data_json(paragraph_json)
+    data_json = default_data_json(title, paragraph_json)
     data = PostResponse::Data.from_json(data_json)
 
     page = PageConverter.new.convert(data)
@@ -148,11 +111,18 @@ describe PageConverter do
   end
 end
 
-def default_data_json(paragraph_json : String)
+def default_paragraph_json
+  "[]"
+end
+
+def default_data_json(
+  title : String = "This is a story",
+  paragraph_json : String = default_paragraph_json
+)
   <<-JSON
     {
       "post": {
-        "title": "This is a story",
+        "title": "#{title}",
         "createdAt": 1628974309758,
         "creator": {
           "id": "abc123",

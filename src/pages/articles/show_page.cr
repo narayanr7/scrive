@@ -7,9 +7,6 @@ class Articles::ShowPage < MainLayout
 
   def content
     h1 page.title
-    if subtitle = page.subtitle
-      para subtitle, class: "subtitle"
-    end
     para class: "meta" do
       text "#{author_link(page.author)} on #{page.created_at.to_s("%F")}"
     end
