@@ -1,13 +1,22 @@
-# scribe
+# Scribe - An Alternative Medium Frontend
 
-This is a project written using [Lucky](https://luckyframework.org). Enjoy!
+This is a project written using [Lucky](https://luckyframework.org). It's main website is [scribe.rip](https://scribe.rip).
 
-### Setting up the project
+## Deploying Your Own
+
+I'd love it if you deploy your own version of this app! To do so currently will take some knowledge of how a webserver runs. If you want to give it a shot, there are a bunch of different ways to deploy. The main site runs on [Ubuntu](https://luckyframework.org/guides/deploying/ubuntu) but there are also directions for [Heroku](https://luckyframework.org/guides/deploying/heroku) or [Dokku](https://luckyframework.org/guides/deploying/dokku).
+
+One thing to note is that this app doesn't currently use a database. Any instructions around postgres can be safely ignored. Lucky (and it's dependency Avram) however does need a `DATABASE_URL` formatted for postgres. It doesn't need to be the URL of an actual database server though. Here's mine: `DATABASE_URL=postgres://does@not/mater`
+
+Hopefully a more comprehensive guide will be written at some point, but for now feel free to reach out if you have any questions. My contact info can be found on [my website](https://edwardloveall.com).
+
+## Contributing
 
 1. [Install required dependencies](https://luckyframework.org/guides/getting-started/installing#install-required-dependencies)
-1. Update database settings in `config/database.cr`
 1. Run `script/setup`
 1. Run `lucky dev` to start the app
+1. Send me a [patch](https://man.sr.ht/git.sr.ht/#sending-patches-upstream)
+  * To be honest, I'm not sure how I feel about the send patch git workflow as opposed to the GitHub style pull request workflow. I'm trying it out for now. If you can't figure it out, get in contact and we can figure out a way to get your contributions in.
 
 ### Learning Lucky
 
