@@ -68,4 +68,10 @@ describe Articles::Show do
 
     TestClient.last_post_id.should eq("777777abcdef")
   end
+
+  it "parses the post id for global identity redirects" do
+    HttpClient.get("/m/global-identity?redirectUrl=https%3A%2F%2Fexample.com%2Fmy-post-888888abcdef")
+
+    TestClient.last_post_id.should eq("888888abcdef")
+  end
 end
