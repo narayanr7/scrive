@@ -53,7 +53,7 @@ class Home::IndexPage < MainLayout
           end
           li do
             strong "Include pattern: "
-            code ".*medium.com/(.*)"
+            code "^https?://(?:.*\\.)*medium.com/(.*)$"
           end
           li do
             strong "Redirect to: "
