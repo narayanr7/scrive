@@ -57,7 +57,9 @@ class Home::IndexPage < MainLayout
           end
           li do
             strong "Redirect to: "
-            code "https://scribe.rip/$1"
+            code "https://"
+            code app_domain
+            code "/$1"
           end
           li do
             strong "Pattern type: "
