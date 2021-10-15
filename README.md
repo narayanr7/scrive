@@ -12,11 +12,27 @@ Hopefully a more comprehensive guide will be written at some point, but for now 
 
 ## Contributing
 
-1. [Install required dependencies](https://luckyframework.org/guides/getting-started/installing#install-required-dependencies)
+1. Install required dependencies (see sub-sections below)
 1. Run `script/setup`
 1. Run `lucky dev` to start the app
 1. [Send a patch](https://man.sr.ht/git.sr.ht/#sending-patches-upstream) to `~edwardloveall/Scribe@lists.sr.ht` (yes that's an email address).
   * To be honest, I'm not sure how I feel about the send patch git workflow as opposed to the GitHub style pull request workflow. I'm trying it out for now. If you can't figure it out, get in contact and we can figure out a way to get your contributions in.
+
+### Installing dependencies
+
+General instructions for installing Lucky and its dependencies can be found at <https://luckyframework.org/guides/getting-started/installing#install-required-dependencies>.
+
+### Installing dependencies with Nix
+
+If you are using the [Nix](https://nixos.org/) package manager, you can get a shell with all dependencies with the following command(s):
+
+``` shell
+nix-shell
+
+# Or if you are using the (still experimental) Nix Flakes feature
+nix flake update # Update dependencies (optional)
+nix develop
+```
 
 ### Learning Lucky
 
