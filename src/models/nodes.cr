@@ -40,6 +40,9 @@ module Nodes
   class FigureCaption < Container
   end
 
+  class Heading1 < Container
+  end
+
   class Heading2 < Container
   end
 

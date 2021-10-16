@@ -10,6 +10,10 @@ class ParagraphConverter
         paragraph = paragraphs.shift
         children = MarkupConverter.convert(paragraph.text, paragraph.markups)
         node = BlockQuote.new(children: children)
+      when PostResponse::ParagraphType::H2
+        paragraph = paragraphs.shift
+        children = MarkupConverter.convert(paragraph.text, paragraph.markups)
+        node = Heading1.new(children: children)
       when PostResponse::ParagraphType::H3
         paragraph = paragraphs.shift
         children = MarkupConverter.convert(paragraph.text, paragraph.markups)

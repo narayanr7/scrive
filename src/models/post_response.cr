@@ -42,6 +42,7 @@ class PostResponse
 
   enum ParagraphType
     BQ
+    H2
     H3
     H4
     IFRAME

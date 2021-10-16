@@ -162,6 +162,23 @@ describe PageContent do
     HTML
   end
 
+  it "renders an H2" do
+    page = Page.new(
+      title: "Title",
+      author: user_anchor_factory,
+      created_at: Time.local,
+      nodes: [
+        Heading1.new(children: [
+          Text.new(content: "Title!"),
+        ] of Child),
+      ] of Child
+    )
+
+    html = PageContent.new(page: page).render_to_string
+
+    html.should eq %(<h1>Title!</h1>)
+  end
+
   it "renders an H3" do
     page = Page.new(
       title: "Title",

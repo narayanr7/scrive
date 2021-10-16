@@ -81,6 +81,10 @@ class PageContent < BaseComponent
     script src: child.src
   end
 
+  def render_child(node : Heading1)
+    h1 { render_children(node.children) }
+  end
+
   def render_child(node : Heading2)
     h2 { render_children(node.children) }
   end

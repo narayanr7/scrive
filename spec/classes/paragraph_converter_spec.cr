@@ -192,6 +192,14 @@ describe ParagraphConverter do
       [
         {
           "text": "text",
+          "type": "H2",
+          "markups": [],
+          "iframe": null,
+          "layout": null,
+          "metadata": null
+        },
+        {
+          "text": "text",
           "type": "H3",
           "markups": [],
           "iframe": null,
@@ -303,6 +311,7 @@ describe ParagraphConverter do
       ]
     JSON
     expected = [
+      Heading1.new([Text.new("text")] of Child),
       Heading2.new([Text.new("text")] of Child),
       Heading3.new([Text.new("text")] of Child),
       Paragraph.new([Text.new("text")] of Child),
