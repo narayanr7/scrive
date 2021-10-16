@@ -10,6 +10,26 @@ One thing to note is that this app doesn't currently use a database. Any instruc
 
 Hopefully a more comprehensive guide will be written at some point, but for now feel free to reach out if you have any questions. My contact info can be found on [my website](https://edwardloveall.com).
 
+### Docker
+
+A Dockerfile is included to build and run your own OCI images. To build:
+
+```
+$ docker build [--build-arg PUID=1000] [--build-arg PGID=1000] -t scribe:latest -f ./Dockerfile .
+```
+
+To run (generating a base config from environment variables):
+
+```
+$ docker run -it --rm -p 8080:8080 -e SCRIBE_PORT=8080 -e SCRIBE_HOST=0.0.0.0 -e SCRIBE_DB=postgres://does@not/matter scribe:latest
+```
+
+To run with mounted config from local fs:
+
+```
+$ docker run -it --rm -v `pwd`/config/watch.yml:/app/config/watch.yml -p 8080:8080 scribe:latest
+```
+
 ## Contributing
 
 1. Install required dependencies (see sub-sections below)
