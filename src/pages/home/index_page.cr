@@ -71,7 +71,7 @@ class Home::IndexPage < MainLayout
       section do
         footer do
           para do
-            a "Source code", href: "https://git.sr.ht/~edwardloveall/scribe"
+            a "Source code", href: "https://sr.ht/~edwardloveall/scribe"
           end
         end
       end
