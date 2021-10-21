@@ -32,7 +32,7 @@ class PostResponse
   end
 
   class Paragraph < Base
-    property text : String
+    property text : String?
     property type : ParagraphType
     property markups : Array(Markup)
     property iframe : IFrame?

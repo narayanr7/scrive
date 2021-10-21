@@ -12,11 +12,12 @@ class MarkupConverter
   getter markups : Array(PostResponse::Markup)
   getter text : String
 
-  def self.convert(text : String, markups : Array(PostResponse::Markup))
+  def self.convert(text : String?, markups : Array(PostResponse::Markup))
     new(text, markups).convert
   end
 
-  def initialize(@text : String, @markups : Array(PostResponse::Markup))
+  def initialize(text : String?, @markups : Array(PostResponse::Markup))
+    @text = text || ""
   end
 
   def convert : Array(Child)
