@@ -47,6 +47,11 @@ class ParagraphConverter
         paragraph = paragraphs.shift
         children = MarkupConverter.convert(paragraph.text, paragraph.markups)
         node = Preformatted.new(children: children)
+      when PostResponse::ParagraphType::SECTION_CAPTION
+        # unused. just here to catch the type instead of implicitly going to the
+        # else block
+        paragraph = paragraphs.shift
+        node = Empty.new
       when PostResponse::ParagraphType::ULI
         list_items = convert_uli(paragraphs)
         node = UnorderedList.new(children: list_items)

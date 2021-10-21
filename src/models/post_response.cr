@@ -52,6 +52,7 @@ class PostResponse
     P
     PQ
     PRE
+    SECTION_CAPTION
     ULI
   end
 
