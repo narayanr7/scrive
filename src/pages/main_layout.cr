@@ -20,4 +20,11 @@ abstract class MainLayout
       end
     end
   end
+
+  private def app_domain
+    URI.parse(Home::Index.url).normalize
+      .to_s
+      .sub(/\/$/, "")
+      .sub(/^https?:\/\//, "")
+  end
 end

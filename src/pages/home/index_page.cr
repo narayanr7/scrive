@@ -37,51 +37,11 @@ class Home::IndexPage < MainLayout
       section do
         h2 "How-To Automatically"
         para do
-          text "If you don't want to manually change the URL every time, you can use an extension to do it for you. "
-          a "This extension", href: "https://einaregilsson.com/redirector/"
-          text " works well across most browsers."
-        end
-        para "Once installed, create a new redirect with the following settings:"
-        ul do
-          li do
-            strong "Description: "
-            code "Medium -> Scribe"
-          end
-          li do
-            strong "Example URL: "
-            code "https://medium.com/@user/post-123456abcdef"
-          end
-          li do
-            strong "Include pattern: "
-            code "^https?://(?:.*\\.)*(?<!link\\.)medium\\.com(/.*)?$"
-          end
-          li do
-            strong "Redirect to: "
-            code "https://"
-            code app_domain
-            code "$1"
-          end
-          li do
-            strong "Pattern type: "
-            code "( ) Wildcard   (•) Regular Expression"
-          end
-        end
-        para "Visiting any medium.com site (including user.medium.com subdomains) should now redirect to Scribe instead!"
-      end
-      section do
-        footer do
-          para do
-            a "Source code", href: "https://sr.ht/~edwardloveall/scribe"
-          end
+          text "Check out the "
+          link "FAQ", to: Faq::Index
         end
       end
+      mount Shared::LayoutFooter
     end
-  end
-
-  def app_domain
-    URI.parse(Home::Index.url).normalize
-      .to_s
-      .sub(/\/$/, "")
-      .sub(/^https?:\/\//, "")
   end
 end
