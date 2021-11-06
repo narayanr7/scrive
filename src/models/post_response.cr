@@ -91,7 +91,7 @@ class PostResponse
 
   class Metadata < Base
     property id : String
-    property originalWidth : Int32
-    property originalHeight : Int32
+    property originalWidth : Int32?
+    property originalHeight : Int32?
   end
 end

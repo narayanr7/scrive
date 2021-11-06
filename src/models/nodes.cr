@@ -86,13 +86,20 @@ module Nodes
   end
 
   class Image
-    IMAGE_HOST = "https://cdn-images-1.medium.com/fit/c"
-    MAX_WIDTH  = 800
+    IMAGE_HOST      = "https://cdn-images-1.medium.com/fit/c"
+    MAX_WIDTH       = 800
+    FALLBACK_HEIGHT = 600
 
     getter originalHeight : Int32
     getter originalWidth : Int32
 
-    def initialize(@src : String, @originalWidth : Int32, @originalHeight : Int32)
+    def initialize(
+      @src : String,
+      originalWidth : Int32?,
+      originalHeight : Int32?
+    )
+      @originalWidth = originalWidth || MAX_WIDTH
+      @originalHeight = originalHeight || FALLBACK_HEIGHT
     end
 
     def ==(other : Image)
