@@ -30,6 +30,14 @@ To run with mounted config from local fs:
 $ docker run -it --rm -v `pwd`/config/watch.yml:/app/config/watch.yml -p 8080:8080 scribe:latest
 ```
 
+## Project goals
+
+I believe that Medium is a bad actor on the web. They offer a [bad reading experience](https://twitter.com/BretFisher/status/1206766086961745920). Writing there [benefits Medium](https://www.manton.org/2016/01/15/silos-as-shortcuts.html) more than the author. Counter to their promise of a wider reach, [they offer worse SEO](https://pawelurbanek.com/medium-blogging-platform-seo). They use [extortionist business tactics](https://www.cdevn.com/why-medium-actually-sucks/). Finally, they want to [centralize the currently decentralized world of blogging](http://scripting.com/liveblog/users/davewiner/2016/01/20/0900.html).
+
+Since Scribe uses Medium content, I don't want to help people engage with it more than they must. My goal here is not to make a nicer Medium to engage with, but to make a less bad experience when people are forced to engage with it. I want Scribe to be a tool, not a platform.
+
+It's intentional that there is no way to browse content from a user, see popular posts, consume via an RSS feed, or see comments and "engage" with an article. I want to spend my time encouraging writers to move to worthy platforms, not making a bad platform worthy.
+
 ## Contributing
 
 1. Install required dependencies (see sub-sections below)
