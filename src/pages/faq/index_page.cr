@@ -8,6 +8,7 @@ class Faq::IndexPage < MainLayout
     article do
       auto_redirect
       why_would_i_want_this
+      other_instances
       mount Shared::LayoutFooter
     end
   end
@@ -81,6 +82,20 @@ class Faq::IndexPage < MainLayout
             a "Other reasons", href: "https://nomedium.dev/"
           end
         end
+      end
+    end
+  end
+
+  private def other_instances
+    section do
+      h2 "Can I use Scribe on a different website? (instances)"
+      para do
+        text "You can! See "
+        a(
+          "this list",
+          href: "https://git.sr.ht/~edwardloveall/scribe/tree/main/docs/instances.md"
+        )
+        text " in the documentation."
       end
     end
   end
