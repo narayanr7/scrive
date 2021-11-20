@@ -2,6 +2,7 @@
 
 * <https://scribe.rip> (official)
 * <https://scribe.nixnet.services>
+* <https://scribe.citizen4.eu>
 
 ## How do I get my instance on this list?
 
