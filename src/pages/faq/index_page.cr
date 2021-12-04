@@ -9,6 +9,7 @@ class Faq::IndexPage < MainLayout
       auto_redirect
       why_would_i_want_this
       other_instances
+      custom_domains
       mount Shared::LayoutFooter
     end
   end
@@ -96,6 +97,36 @@ class Faq::IndexPage < MainLayout
           href: "https://git.sr.ht/~edwardloveall/scribe/tree/main/docs/instances.md"
         )
         text " in the documentation."
+      end
+    end
+  end
+
+  private def custom_domains
+    section do
+      h2 "What about Medium articles on custom domains?"
+      para do
+        text <<-TEXT
+          Scribe can read these also. The URL just needs to end with the
+          characters at the end of the URL called the Post ID. Here's an
+          example:
+        TEXT
+      end
+      para do
+        code "example.com/my-post-"
+        code "09a6af907a2", class: "highlight"
+        text " can be converted to "
+        br
+        code app_domain
+        code "/my-post-"
+        code "09a6af907a2", class: "highlight"
+      end
+      para do
+        text <<-TEXT
+          To redirect automatically, follow the intructions above to on how to
+          redirect medium articles. Replace
+        TEXT
+        code " medium\\.com"
+        text " with the domain of your choosing."
       end
     end
   end
