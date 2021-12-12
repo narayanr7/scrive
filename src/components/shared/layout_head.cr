@@ -1,6 +1,5 @@
 class Shared::LayoutHead < BaseComponent
   needs page_title : String
-  needs context : HTTP::Server::Context
 
   def render
     head do

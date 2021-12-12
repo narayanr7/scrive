@@ -1,6 +1,7 @@
 class AppServer < Lucky::BaseAppServer
   def middleware : Array(HTTP::Handler)
     [
+      Lucky::RequestIdHandler.new,
       Lucky::ForceSSLHandler.new,
       Lucky::HttpMethodOverrideHandler.new,
       Lucky::LogHandler.new,
@@ -18,7 +19,6 @@ class AppServer < Lucky::BaseAppServer
   end
 
   def listen
-    server.bind_tcp(host, port, reuse_port: false)
-    server.listen
+    server.listen(host, port, reuse_port: false)
   end
 end

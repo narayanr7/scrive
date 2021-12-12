@@ -1,5 +1,5 @@
 Lucky::Server.configure do |settings|
-  if Lucky::Env.production?
+  if LuckyEnv.production?
     settings.secret_key_base = secret_key_from_env
     settings.host = "0.0.0.0"
     settings.port = ENV["PORT"].to_i
@@ -19,11 +19,21 @@ Lucky::ForceSSLHandler.configure do |settings|
   # To force SSL in production, uncomment the lines below.
   # This will cause http requests to be redirected to https:
   #
-  #    settings.enabled = Lucky::Env.production?
+  #    settings.enabled = LuckyEnv.production?
   #    settings.strict_transport_security = {max_age: 1.year, include_subdomains: true}
   #
   # Or, leave it disabled:
   settings.enabled = false
+end
+
+# Set a uniuqe ID for each HTTP request.
+Lucky::RequestIdHandler.configure do |settings|
+  # To enable the request ID, uncomment the lines below.
+  # You can set your own custom String, or use a random UUID.
+  #
+  # settings.set_request_id = ->(context : HTTP::Server::Context) {
+  #   UUID.random.to_s
+  # }
 end
 
 private def secret_key_from_env

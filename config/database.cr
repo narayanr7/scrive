@@ -1,7 +1,7 @@
-database_name = "scribe_#{Lucky::Env.name}"
+database_name = "scribe_#{LuckyEnv.environment}"
 
 AppDatabase.configure do |settings|
-  if Lucky::Env.production?
+  if LuckyEnv.production?
     settings.credentials = Avram::Credentials.parse(ENV["DATABASE_URL"])
   else
     settings.credentials = Avram::Credentials.parse?(ENV["DATABASE_URL"]?) || Avram::Credentials.new(
@@ -16,5 +16,9 @@ end
 
 Avram.configure do |settings|
   settings.database_to_migrate = AppDatabase
-  settings.lazy_load_enabled = Lucky::Env.production?
+  settings.lazy_load_enabled = LuckyEnv.production?
+
+  # Always parse `Time` values with these specific formats.
+  # Used for both database values, and datetime input fields.
+  # settings.time_formats << "%F"
 end

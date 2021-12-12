@@ -12,7 +12,7 @@ class Articles::Show < BrowserAction
       html(
         Errors::ShowPage,
         message: "Error parsing the URL",
-        status: 500,
+        status_code: 500,
       )
     end
   end
@@ -39,10 +39,14 @@ class Articles::Show < BrowserAction
   end
 
   def client_class
-    if Lucky::Env.use_local?
+    if use_local?
       LocalClient
     else
       MediumClient
     end
+  end
+
+  def use_local?
+    ENV.fetch("USE_LOCAL", "false") == "true"
   end
 end

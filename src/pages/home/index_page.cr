@@ -1,6 +1,6 @@
 class Home::IndexPage < MainLayout
   def page_title
-    "Scribe"
+    Application.settings.name
   end
 
   def content
