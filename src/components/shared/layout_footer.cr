@@ -3,7 +3,12 @@ class Shared::LayoutFooter < BaseComponent
     section do
       footer do
         para do
-          a "Source code", href: "https://sr.ht/~edwardloveall/scribe"
+          span do
+            a "Source code", href: "https://sr.ht/~edwardloveall/scribe"
+          end
+          span do
+            text "Version: #{Scribe::VERSION}"
+          end
         end
       end
     end

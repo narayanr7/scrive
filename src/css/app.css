@@ -30,3 +30,7 @@ figure iframe {
     background: rgba(221, 221, 221, 0.3);
   }
 }
+
+footer p span {
+  margin-right: 1em;
+}
