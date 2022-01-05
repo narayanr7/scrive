@@ -12,6 +12,7 @@ class Home::IndexPage < MainLayout
         href: "/@ftrain/big-data-small-effort-b62607a43a8c"
       )
     end
+    para "Custom domains work the too. See below for a How-To."
     article do
       section do
         h2 "How-To"
@@ -31,6 +32,20 @@ class Home::IndexPage < MainLayout
           code do
             span app_domain, class: "highlight"
             text "/@user/my-post-09a6af907a2"
+          end
+        end
+        para do
+          text "For articles on custom domains, instead of replacing "
+          code "medium.com", class: "highlight"
+          text " replace the custom domain. E.g. instead of "
+          code do
+            span "customdomain.com", class: "highlight"
+            text "/blog/my-post-09a6af907a2"
+          end
+          text " change it to "
+          code do
+            span app_domain, class: "highlight"
+            text "/blog/my-post-09a6af907a2"
           end
         end
       end
