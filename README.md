@@ -32,6 +32,19 @@ To run with mounted config from local fs:
 $ docker run -it --rm -v `pwd`/config/watch.yml:/app/config/watch.yml -p 8080:8080 scribe:latest
 ```
 
+### Configuration
+
+To allow your domain to show up on the homepage, the `APP_DOMAIN` environment variable must be set. Note that this only takes effect if the `LUCKY_ENV` environment variable is also set to `production`.
+
+See the [route_helper](https://git.sr.ht/~edwardloveall/scribe/tree/main/item/config/route_helper.cr) config for the code that powers this feature.
+
+Other configuration needed when in `production` mode:
+
+* PORT: The port Scribe should run on
+* SECRET_KEY_BASE: A 32-bit string. Can be generated with `lucky gen.secret_key`
+* DATABASE_URL: May be any valid postgres url since Scribe doesn't use a database
+  * Example: `postgres://does@not/matter`
+
 ## Project goals
 
 I believe that Medium is a bad actor on the web. They offer a [bad reading experience](https://twitter.com/BretFisher/status/1206766086961745920). Writing there [benefits Medium](https://www.manton.org/2016/01/15/silos-as-shortcuts.html) more than the author. Counter to their promise of a wider reach, [they offer worse SEO](https://pawelurbanek.com/medium-blogging-platform-seo). They use [extortionist business tactics](https://www.cdevn.com/why-medium-actually-sucks/). Finally, they want to [centralize the currently decentralized world of blogging](http://scripting.com/liveblog/users/davewiner/2016/01/20/0900.html).
